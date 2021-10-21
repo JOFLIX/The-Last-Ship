@@ -1,0 +1,130 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <h1 style="width: 100%;" class="btn btn-info "><a class="float-left btn btn-primary" href="{% url 'register_parent' %}">ADD</a> <a target="_blank" class="float-left btn btn-warning" href="{% url 'pdf_export_parents' %}">PDF</a> ALL REGISTERD PARENTS <a class="float-right btn btn-success"
+                            href="#">Total {{count}}</a> </h1>
+                    <br><br>
+                    <form class="card" style="padding: 10px;" action="" method="GET">
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{form.form.registration_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.email|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.national_ID|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.student_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                <br>
+                                <button style="width: 100%;" class="btn btn-primary"> Search</button>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+
+                    <div class="card">
+                        <marquee behavior="scroll" direction="left">Our Registered Parents : {{count}}</marquee>
+                    </div>
+                    <table class="table table-sm table-responsive-lg table-bordered">
+                        <tr style="background-color: black;color:white;">
+                            <th>Parent Registration NO</th>
+                            <th>Student registration NO</th>
+                            <th>Email</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th> Active</th>
+                            <th>National ID</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Action</th>
+                            <td>Action</td>
+
+
+                        </tr>
+                        {% for x in obj %}
+                        <tr>
+                            <td style="background-color: wheat;">{{x.registration_number}}</td>
+                            <td>{{x.student_number}}</td>
+                            <td>{{x.email}}</td>
+                            <td>{{x.first_name}}</td>
+                            <td>{{x.last_name}}</td>
+                            <td>{{x.is_active}}</td>
+                            <td>{{x.national_ID}}</td>
+
+                            <td>{{x.phone}}</td>
+
+                            <td>{{x.gender}}</td>
+
+
+                            <td><a href="{% url 'update_parent' x.id  %}">Edit</a></td>
+                            <td><a href="{% url 'delete_parent' x.id%}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <hr>
+                    <center>
+                        Showing page {{obj.number}} of {{ obj.paginator.num_pages }}
+                        <div class="paginator">
+                            {% if obj.has_other_pages %}
+                            <ul class="pagination">
+                                {% if obj.has_previous %}
+                                <li><a href="?page={{ obj.previous_page_number }}">Previous</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %} {% for i in obj.paginator.page_range %} {% if obj.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                                {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %} {% endfor %} {% if obj.has_next %}
+                                <li><a href="?page={{ obj.next_page_number }}">Next</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <style>
+                            .paginator ul li {
+                                padding: 20px;
+                                border: 1px solid lightblue;
+                                height: 10px;
+                            }
+                        </style>
+
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+    
+    .table tr {
+        font-size: 12px;
+    }
+</style>
+
+{% endblock %}

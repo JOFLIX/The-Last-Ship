@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timetable</title>
+    <style>
+        @page {
+            size: A4 LANDSCAPE;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i>Student Timetable</i></sup>
+        <hr>
+
+    </center>
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid rgb(78, 1, 1);
+            padding: 10px;
+            font-size: small;
+        }
+    </style>
+    <sup><b>ADDMISION NO</b> : {{u}} </sup><br>
+    <sup><b>CLASS</b> : {{class_a}}</sup><br>
+    <sup> <b>FIRST NAME</b> : {{first_name}} </sup><br>
+    <sup><b>LAST NAME</b>  :{{last_name}} </sup><br>
+    <sup><b>PROGRAMME</b>   :{{get_programme}} </sup><br>
+    <sup><b>DEPARTMENT</b>   : {{get_department}}</sup><br>
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+
+
+    </ul>
+    <table height=300 style="font-size: 10px;width: 100%;border-collapse: collapse;">
+        <thead style="color:white; font-size: bold;background-color:black">
+            <th>DAY</th>
+            <th>CLASS NAME</th>
+            <th>UNIT NAME</th>
+            <th>LECTURER NAME</th>
+            <th>TIME</th>
+            <th>ROOM</th>
+            <th>DATE ADDED</th>
+        </thead>
+        {% for x in timetable %}
+        <tbody>
+            <tr>
+                <td>{{x.day}}</td>
+                <td>{{x.class_ID}}</td>
+                <td>{{x.unit_name}}</td>
+                <td>{{x.lecturer_name}}</td>
+                <td>{{x.time_dulation}}</td>
+                <td>{{x.room}}</td>
+                <td>{{x.date_added}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+
+    </table>
+    <br>
+
+
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+ {% extends 'accounts/base.html' %} {% block content %} {% load crispy_forms_tags %}{% load static %} {% load static %}
+<!-- Home -->
+
+<div class="home">
+    {% for x in o %}
+    <!-- Home Slider -->
+    <div class="home_slider_container">
+        <div class="owl-carousel owl-theme home_slider">
+
+            <!-- Slide -->
+            <div class="slide">
+                <div class="background_image" style="background-image:url(https://scontent.fnbo10-1.fna.fbcdn.net/v/t1.6435-9/184675891_117051063859499_307465118610597125_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeFd65zCAhdgy0eWbH-WchHnTEYuBrsh9J1MRi4GuyH0nfIWtFrGpAHurBFsa0c-NydQ5sYuG2awbr4u2MYzqzno&_nc_ohc=EG2T2JCSJL4AX-Kx8SO&_nc_pt=5&_nc_ht=scontent.fnbo10-1.fna&oh=62be8eaa863d9be1123ca8465d66de4d&oe=60BF028F)"></div>
+                <div class="home_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content">
+                                    <div class="home_title">
+                                        <h6 style="color: white;">{{x.slider_one_text}}</h6>
+                                    </div>
+                                    <a href="{% url 'online_applications' %}">
+                                        <div class="home_price_tag">Apply Now</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide -->
+            <div class="slide">
+                <div class="background_image" style="background-image:url(https://scontent.fnbo10-1.fna.fbcdn.net/v/t1.6435-9/184680344_117050977192841_1380069794098529324_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeHNiOTq--ZJ13Xkj4P0p1BWZYT5YD8pictlhPlgPymJy3id3dvsS-psC3_cujv90C5eYg-7KGksdLUrXBg09Io0&_nc_ohc=AfT0Dq3-iCsAX8yGI1m&_nc_pt=5&_nc_ht=scontent.fnbo10-1.fna&oh=2252ad179ce5355cc8b8342f80d7f771&oe=60BF808B)"></div>
+                <div class="home_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content">
+                                    <div class="home_title">
+                                        <h6 style="color: white;">{{x.slider_two_text}}</h6>
+                                    </div>
+                                    <a href="{% url 'loginuser' %}">
+                                        <div class="home_price_tag">Staff Portal </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide -->
+            <div class="slide">
+                <div class="background_image" style="background-image:url(https://scontent.fnbo9-1.fna.fbcdn.net/v/t1.6435-9/185169002_117050877192851_1515846728107160776_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeH7AIOtjq5bEXNzEgkwk4FFZ-IeRZIl0fRn4h5FkiXR9GKOkbwGUSkmZm728A-j3s9_mYAxvV5cfzPF2gvOf2Bu&_nc_ohc=LUkP08YFgbgAX_8o7mH&_nc_pt=5&_nc_ht=scontent.fnbo9-1.fna&oh=ffc2175025f831a48537a87ef42db473&oe=60C05ACE)"></div>
+                <div class="home_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content">
+                                    <div class="home_title">
+                                        <h6 style="color: white;">{{x.slider_three_text}}</h6>
+                                    </div>
+                                    <a href="{% url 'loginuser' %}">
+                                        <div class="home_price_tag">Student Portal</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="background_image" style="background-image:url(   https://scontent.fnbo10-1.fna.fbcdn.net/v/t1.6435-0/p180x540/185329797_117057013858904_4788098010097288863_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeGdQSNyMEqEHzPtL-0SWzKG_iUYdm78X1X-JRh2bvxfVWTFGzL_9VI38s5z4hjp2GRExB7MVpQi3tFp93Q2ng6q&_nc_ohc=-7Gpqb46ES0AX-ICsos&_nc_pt=5&_nc_ht=scontent.fnbo10-1.fna&tp=6&oh=82bab16cd3e5eeda91cf93b0fe3c45ff&oe=60BF8194)"></div>
+                <div class="home_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content">
+                                    <div class="home_title">
+                                        <h6 style="color: white;">{{x.slider_three_text}}</h6>
+                                    </div>
+                                    <a href="{% url 'loginuser' %}">
+                                        <div class="home_price_tag">Student Portal</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="background_image" style="background-image:url(https://scontent.fnbo10-1.fna.fbcdn.net/v/t1.6435-0/p180x540/184511743_117064917191447_6934585356554255106_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeEAHpR9kGwcg3ENIC9vJDNqcPrCA3WgnGJw-sIDdaCcYhjquojEBlVtUsYRxgNWwBfiOMXSGvKw6JfDAgFbhaOu&_nc_ohc=inSUdjFOV54AX-gtULV&_nc_pt=5&_nc_ht=scontent.fnbo10-1.fna&tp=6&oh=6aa05fc5d50769e2b10af4dcd9aa824d&oe=60BFC3B7)"></div>
+                <div class="home_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content">
+                                    <div class="home_title">
+                                        <h6 style="color: white;">{{x.slider_three_text}}</h6>
+                                    </div>
+                                    <a href="{% url 'loginuser' %}">
+                                        <div class="home_price_tag">Staff Portal</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="background_image" style="background-image:url(https://scontent.fnbo10-1.fna.fbcdn.net/v/t1.6435-9/184866534_117066490524623_9005560126370560905_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=730e14&_nc_eui2=AeE9wOr-bcohjZp3m7cX7_N98XsPWOZ_w23xew9Y5n_DbWhs9XEvfpuXOWQkprWtft33tFBmw9f24XogePRXZv4K&_nc_ohc=d8_DmoVjgGgAX_1vAhM&_nc_pt=5&_nc_ht=scontent.fnbo10-1.fna&oh=d79aebab2d9f7d1fc3dbcd9c98521531&oe=60BD6677)"></div>
+                <div class="home_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content">
+                                    <div class="home_title">
+                                        <h6 style="color: white;">{{x.slider_three_text}}</h6>
+                                    </div>
+                                    <a href="{% url 'loginuser' %}">
+                                        <div class="home_price_tag">Staff Portal</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Home Slider Navigation -->
+<div class="home_slider_nav"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+
+</div>
+</div>
+
+<!-- Search -->
+
+<div class="search">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="search_container">
+                    <div class="search_title">HAVARD INSTITUTE</div>
+                    <div class="search_form_container">
+                        <form action="#" class="search_form" id="search_form">
+                            <div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+                                <div class="search_inputs d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+                                    <h4 style="color: white;">" {{x.welcome_message}} "</h4>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="testimonials container_reset">
+    <div class="container">
+        <div class="row row-eq-height">
+
+            <!-- Testimonials Image -->
+            <div class="col-xl-6">
+                <div class="testimonials_image">
+                    <div class="background_image" style="background-image:url({% static 'frontend_images/one.JPG' %})"></div>
+                    <div class="testimonials_image_overlay"></div>
+                </div>
+            </div>
+
+            <!-- Testimonials Content -->
+            <div class="col-xl-6">
+                <div class="testimonials_content">
+                    <div class="section_title_container">
+                        <div class="section_subtitle">HAVARD INSTITUTE </div>
+                        <div class="section_title">
+                            <h6>" We Give You Wings To Fly" </h6>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+
+</div>
+<div class="row bg-light">
+    <div class="col-md-2 shadow">
+        <br><br> <br>
+        <center>
+            <h6>Director's Message </h6>
+            <img style="width: 150px;height:150px;border-radius:600px;" src="/static/img/d.png" alt="">
+        </center>
+
+    </div>
+    <div class="col-md-8 shadow">
+        <p style="padding: 20px;color:black">
+            <i> {{x.director_message}}</i>
+        </p>
+    </div>
+
+    <div class="col-md-2 shadow">
+        <br><br>
+
+        <video style="width:100%;" height="240" controls>
+            <source src="/static/video/16036682_1745861425732158_1324466900750565376_n.mp4" type="video/mp4">
+            <source src="/static/video/16036682_1745861425732158_1324466900750565376_n.mp4" type="video/ogg">
+            Your browser does not support the video tag.
+          </video>
+    </div>
+
+</div>
+
+{% endfor %} {% endblock content %}

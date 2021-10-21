@@ -1,0 +1,61 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; font-size:20px; " class="btn btn-primary"></a> STUDENTS UPLOADED ASSIGNMENT <b class=" btn btn-warning float-right ">Total  {{count}}  </b></button>
+                    <br>
+                    <div style="padding: 10px;" class="card">
+                        <form action="" method="GET">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{form.form.user|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    {{form.form.class_name|as_crispy_field}}
+                                </div>
+                                <div class="col-md-4">
+                                    <br>
+                                    <button style="width: 100%;" class="btn btn-info">Search</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <table class="table table-bordered  table-responsive-lg table-striped">
+                        <tr>
+                            <th>Registration number</th>
+                            <th>Class</th>
+                            <th>File</th>
+                            <th>Submission Date</th>
+                            <th>Action</th>
+
+                        </tr>
+                        {% for x in data %}
+                        <tr>
+                            <td>{{x.user}}</td>
+                            <td>{{x.class_name}}</td>
+                            {% if x.file %}
+                            <td><a href="{{x.file.url}}">{{x.file}}</a></td>
+                            {% endif %}
+                            <td>{{x.date_added}}</td>
+
+                            <td><a href="{% url 'delete_assignment_adm_lec_std_upload' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

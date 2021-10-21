@@ -1,0 +1,50 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    <center>
+                        <h6 style="color: red">NB : Trial accounts cannot send messages to unverified numbers purchase a Twilio number to send messages to unverified numbers </h6>
+                    </center>
+                    {% if not messages %}
+                    <img style="height:200px;" src="https://patientengagementhit.com/images/site/article_headers/_normal/healthcare-text-messaging.jpg" alt=""> {% else %} {% for x in messages %}
+                    <div class="alert alert-success">
+                        {{x}}
+                    </div>
+                    {% endfor %} {% endif %}
+                    <form class="form-group " action="" method="post">
+                        {% csrf_token %}
+
+                        <label>Message</label>
+                        <textarea required class="form-control required" name="message" rows="5" placeholder="Type A message"></textarea>
+                        <label for="receivers">Choose Recepients:</label>
+                        <select class="form-control" name="receivers" id="receivers">
+                        <option value="is_student">Students</option>
+                        <option value="is_lecturer">Lecturers</option>
+                        <option value="is_superuser">Superusers</option>
+                        <option value="is_parent">Parents</option>
+                        </select>
+                        <br>
+                        <button class="btn btn-primary" style="width: 100%;">SUBMIT </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+</style>
+
+{% endblock %}

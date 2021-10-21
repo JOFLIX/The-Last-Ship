@@ -1,0 +1,254 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load static %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-1">
+                <div class="col-sm-12 card">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <!-- Profile Image -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-body box-profile">
+                                            <div class="text-center">
+                                                <img style="width:150px;height:150px;" class="profile-user-img img-fluid img-circle" src="{{request.user.profile.picture.url}}" alt="">
+                                            </div>
+
+                                            <h3 class="profile-username text-center">{{request.user.first_name}} {{request.user.last_name}}</h3>
+
+                                            <p class="text-muted text-center">Joined {{request.user.date_joined}}</p>
+
+                                            <ul class="list-group list-group-unbordered mb-3">
+                                                <li class="list-group-item">
+                                                    <b>First Name</b> <a class="float-right">{{request.user.first_name}} </a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Last Name</b> <a class="float-right">{{request.user.last_name}}</a>
+                                                </li>
+                                                {% if not request.user.is_superuser %}
+                                                <li class="list-group-item">
+                                                    <b>Admission Number</b> <a class="float-right">{{request.user}}</a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+
+                                            <a href="#" class="btn btn-success btn-block disabled"><b>Last Seen : {{request.user.last_login}}</b></a>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+
+                                    <!-- About Me Box -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">About Me</h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <strong><i class="fas fa-book mr-1"></i> Education</strong> {% for x in profile_objects %}
+                                            <p class="text-muted">
+                                                {{x.education}}
+                                            </p>
+
+                                            <hr>
+
+                                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                                            <p class="text-muted">{{x.location}}</p>
+
+                                            <hr>
+
+                                            <strong><i class="far fa-file-alt mr-1"></i> Skills</strong>
+
+                                            <p class="text-muted">
+                                                <span class="tag tag-danger">{{x.skills}}</span>
+
+                                            </p>
+
+                                            <hr>
+
+                                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                                            <p class="text-muted">{{x.notes}}</p>
+                                            <hr>
+
+                                            <a href="{% url 'updateprofile' x.id %}"> <i class="fas fa-pencil-alt mr-1"></i> Edit </a>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-9">
+                                    <div class="card">
+                                        <div class="card-header p-2">
+                                            <ul class="nav nav-pills">
+                                                <li style="width: 100%;" class="nav-item">
+                                                    <a class="nav-link active" href="#activity" data-toggle="tab">
+                                                        <center>Welcome {{request.user.get_full_name}}</center>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <div class="active tab-pane" id="activity">
+                                                    <!-- Post -->
+                                                    <div class="post">
+                                                        <div class="user-block">
+                                                            <img class="img-circle img-bordered-sm" src="{{request.user.profile.picture.url}}" alt="">
+                                                            <span class="username">
+                          <a href="#">{{request.user.get_full_name}}</a>
+                          <a href="#" class="float-right btn-tool"></a>
+                        </span>
+
+                                                        </div>
+                                                        <!-- /.user-block -->
+                                                        <p>
+                                                            <b>Phone :</b>
+                                                            <b>{{x.phone}}</b><br>
+
+                                                            <b>Occupation :</b> {{x.occupation}}
+                                                            <br>
+                                                            <b>Nationality :</b> {{x.country}}
+                                                        </p>
+
+                                                        <p>
+
+                                                            <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                           <a href="{% url 'updateprofile' x.id %}"> <i class="fas fa-pencil-alt mr-1"></i>  Edit </a>
+                          </a>
+                        </span>
+                                                        </p>
+
+                                                        <br><br>
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.post -->
+
+                                                <!-- Post -->
+                                                <div class="post">
+
+                                                    <!-- /.user-block -->
+
+
+                                                </div>
+                                                <!-- /.post -->
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="timeline">
+                                                <!-- The timeline -->
+                                                <div class="timeline timeline-inverse">
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-danger">
+                          My Profile Motto
+                        </span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-user bg-info"></i>
+
+                                                        <div class="timeline-item">
+
+
+                                                            <h3 class="timeline-header border-0"><a href="#">{{request.user.get_full_name}}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-comments bg-warning"></i>
+
+                                                        <div class="timeline-item">
+
+
+
+                                                            <div class="timeline-body">
+                                                                {{x.my_profile}}
+                                                            </div>
+                                                            <div class="timeline-footer">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-success">
+                          County
+                        </span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-camera bg-purple"></i>
+
+                                                        <div class="timeline-item">
+
+
+                                                            <h3 class="timeline-header"><a href="#">{{x.county}}</a> </h3>
+                                                            <hr>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.tab-pane -->
+
+                                            <hr>
+                                            <center>
+                                                <a href="{% url 'updateprofile' x.id %}"> <i class="fas fa-pencil-alt mr-1"></i> Edit </a>
+                                            </center>
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.nav-tabs-custom -->
+                        </div>
+                        <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {% endfor %}
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+</div>
+</div>
+
+</div>
+</div>
+<!-- /.container-fluid -->
+</section>
+</div>
+
+{% endblock %}

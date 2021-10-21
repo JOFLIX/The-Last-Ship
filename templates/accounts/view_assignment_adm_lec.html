@@ -1,0 +1,41 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 ">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'add_assignment' %}">ADD</a> MY ASSIGNMENTS TO STUDENTS <b class=" btn btn-warning float-right ">Total  {{count}}</b></button>                    {% for x in asg %}
+                    <br>
+                    <br>
+                    <div class="card">
+                        <ul>
+
+                            <li>Class :{{x.to_class}}</li>
+                            <li style="color: green;">Title :{{x.assignment_title|upper}}</li>
+                            <li>Instructions : <br> {{x.assignment_instructions|upper}}</li>
+                            <li style="padding: 30px;">Questions : <br> <i>{{x.questions}}</i></li>
+                            {% if x.file %}
+                            <li><a href="{{x.file.url}}">{{x.file}}</a></li>
+                            {% else %}
+                            <li>NO FILE</li>
+                            {% endif %}
+                            <li>Deadline :{{x.deadline}}</li>
+                            <li><a href="{% url 'update_assignment_adm_lec' x.id %}">Edit</a></li>
+                            <li><a href="{% url 'delete_assignment_adm_lec' x.id %}">Delete</a></li>
+
+                        </ul>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

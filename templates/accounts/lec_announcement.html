@@ -1,0 +1,29 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    <center>
+                        <h1>ANNOUNCEMENTS</h1>
+                        <hr>
+                    </center>
+                    <ul>
+                        {% for x in o %}
+                        <li>
+                            <b>   {{x.title|upper}}</b>
+                            <br>{{x.announcement}}
+                            <br> <i style="color:green;">{{x.date_added}}</i>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

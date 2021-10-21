@@ -1,0 +1,67 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card  ">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary">ANNOUNCEMENTS</button>
+                    <center>
+                        <h5><b>ALL STUDENTS ANNOUNCEMENTS</b></h5>
+                    </center>
+                    <ul class="jumbotron">
+                        {% for x in all_students_announcements %}
+
+                        <li style="color: green;">{{x.title}} , </li>
+                        <li>{{x.announcement}}</li>
+                        <li>{{x.date_added}}</li>
+                        <br> {% endfor %}
+                    </ul>
+                    </table>
+                    <center>
+                        <h5><b>MY CLASS ANNOUNCEMENTS</b></h5>
+                    </center>
+                    <ul class="jumbotron">
+                        {% for x in specific_class %}
+
+                        <li style="color: green;">{{x.title}} , </li>
+                        <li>{{x.announcement}}</li>
+                        <li>{{x.date_added}}</li>
+                        <br> {% endfor %}
+                    </ul>
+                    </table>
+                    <center>
+                        <h5><b>DEPARTMENTAL ANNOUNCEMENTS</b></h5>
+                    </center>
+                    <ul class="jumbotron">
+                        {% for x in departmental %}
+
+                        <li style="color: green;">{{x.title}} , </li>
+                        <li>{{x.announcement}}</li>
+                        <li>{{x.date_added}}</li>
+                        <br> {% endfor %}
+                    </ul>
+                    </table>
+                    <center>
+                        <h5><b>MY SPECIFIC ANNOUNCEMENTS</b></h5>
+                    </center>
+                    <ul class="jumbotron">
+                        {% for x in specific_student %}
+
+                        <li style="color: green;">{{x.title}} , </li>
+                        <li>{{x.announcement}}</li>
+                        <li>{{x.date_added}}</li>
+                        <br> {% endfor %}
+                    </ul>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width:100%;" class="btn btn-info">SYSTEM SETTINGS </button>
+
+                    <form class="card" style="padding: 10px;" action="" method="POST">
+                        {% csrf_token %} {{form|crispy}}
+                        <button class="btn btn-primary">Save Changes </button>
+                    </form>
+                    <hr>
+
+                    <div class="box card">
+                        <center>
+                            <h1>CURRENT SYSTEM SETTINGS</h1>
+                        </center>
+                    </div>
+                    <div style="padding: 20px;" class="card">
+                        <table class="table table-hover table-responsive-lg table-sm table-bordered">
+                            <tr>
+                                <th>School Name</th>
+                                <th>Term</th>
+                                <th>Session Year</th>
+                                <th>Action</th>
+                                <th>Action</th>
+                            </tr>
+                            {% for x in s %}
+                            <tr>
+                                <td>{{x.School_name}}</td>
+                                <td>{{x.term}}</td>
+                                <td>{{x.session_year}}</td>
+                                <td><a href="{% url 'update_settings' x.id %}">Edit</a></td>
+                                <td>
+                                    <a href="{% url 'delete_settings' x.id %}"></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+</style>
+
+{% endblock %}

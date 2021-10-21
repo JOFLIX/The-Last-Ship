@@ -1,0 +1,137 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 20px;" class="col-md-12 card">
+                    <h1 class="btn btn-info"> FEES PAYMENT <a class="btn btn-primary btn-sm float-left" href="{% url 'viewfee' %}">View</a></h1> {% if messages %} {% for x in messages %}
+                    <button class="btn btn-warning">
+                   {{x}}
+               </button> {% endfor %} {% endif %}
+                    <br>
+                    <form style="padding: 10px;" class="form-group card" action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <br> <input class="form-control" required type="text" id="reg_search_id" placeholder="Student Registration number " name="reg_search">
+                            </div>
+                            <div class="col-md-4">
+                                <br>
+                                <button style="width: 100%;" class="btn btn-success">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <input class="form-control" required type="hidden" name="reg_hidden"> {% if not student_exist %}
+                    <table class="table table-bordered table-hover table-responsive-lg table-hover">
+                        <tr style="background-color: black;color:white;">
+                            <th>Admission</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Course</th>
+                            <th>Class</th>
+                            {% if current_arrears_on_search %}
+                            <th>Current Balance</th>
+                            {% endif %}
+                        </tr>
+                        {% for x in student_result %}
+                        <tr>
+                            <td>{{x.registration_number}}</td>
+                            <td>{{x.first_name}}</td>
+                            <td>{{x.last_name}}</td>
+                            <td>{{x.course_assigned}}</td>
+                            <td>{{x.class_assigned}}</td>
+                            {% if current_arrears_on_search %}
+                            <td><b>KES {{current_arrears_on_search}}</b></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                    <center>
+                        <h4>FEES PAYMENTS</h4>
+                    </center>
+
+                    <form style="padding:20px;" class="form-group card " action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label> Registration Number</label>
+                                <input class="form-control woo" required type="text" placeholder="Student Registration number " name="reg" value="{{value_reg}}">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>Amount</label>
+                                <input class="form-control woo" required type="number" placeholder="Amount with no decimals" name="amount">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Payment Method</label>
+                                <select class="form-control" name="pm" id="">
+                                    <option value="Mpesa">Mpesa</option>
+                                    <option value="Bank">Bank</option>
+                                    <option value="Credit Card">Credit Card</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Transaction Reference</label>
+                                <input class="form-control woo" required type="text" placeholder="Reference number or Mpesa Code" name="code">
+                            </div>
+
+                            <div class="col-md-2">
+                                <br>
+                                <button style="width:100%;" class="btn btn-primary">Click To Pay</button>
+                            </div>
+                        </div>
+                        {% endif %}
+                </div>
+                </form>
+                <!--
+                <table class="table table-bordered">
+                    <tr style="background-color: black;color:white;">
+                        <td>Date</td>
+                        <td>Registration number</td>
+                        <td>student name </td>
+                        <td>student course</td>
+                        <td>MOdule</td>
+                        <td>year</td>
+                        <td>term</td>
+                        <td>Payment Method </td>
+                        <td>preve arreas</td>
+                        <td>Ammount paid </td>
+                        <td>current arrears</td>
+
+                    </tr>
+
+                    {% for x in fees_payment_data %}
+
+                    <tr>
+                        <td>{{x.date_paid}}</td>
+                        <td>{{x.registration_number}}</td>
+                        <td>{{x.student_name}}</td>
+                        <td>{{x.course}}</td>
+                        <td>{{x.module}}</td>
+                        <td>{{x.year}}</td>
+                        <td>{{x.term}}</td>
+                        <td>{{x.payment_mthd}}</td>
+                        <td>{{x.prev_arrears}}</td>
+                        <td>{{x.amount_paid}}</td>
+                        <td>{{x.current_arrears}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+
+-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<style>
+    .woo {
+        box-shadow: 2px 10px black;
+        border-radius: 10px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'accounts/basedashboard.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div style="padding: 10px;" class="col-md-12 shadow">
+                            <button class="btn btn-info" style="width: 100%;">ADD SESSIONS</button>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                {{form|crispy}}
+                                <button class="btn btn-primary" style="width: 100%;">Submit</button>
+                            </form>
+                          
+                       </div>
+                 
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+{% endblock %}

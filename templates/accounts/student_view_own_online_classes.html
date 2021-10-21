@@ -1,0 +1,38 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary">MY ONLINE CLASSES <b class=" btn btn-warning float-right ">Total  {{count}}  </b></button>
+                    <table class="table table-bordered  table-responsive-lg table-striped">
+                        <tr>
+                            <th>Target Class </th>
+                            <th>Unit</th>
+                            <th>Start Time </th>
+                            <th>Day</th>
+                            <th>CLASS</th>
+                            <th>Date Added</th>
+                        </tr>
+                        {% for x in online_classes %}
+                        <tr>
+                            <td>{{x.target_class}}</td>
+                            <td>{{x.unit}}</td>
+                            <td>{{x.time}}</td>
+                            <td>{{x.day}}</td>
+                            <td><a target="_blank" href="{{x.class_link}}">JOIN CLASS</a></td>
+                            <td>{{x.date_added}}</td>
+                            {% endfor %}
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

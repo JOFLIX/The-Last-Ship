@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i>Online Application </i></sup>
+
+
+    </center>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid rgb(78, 1, 1);
+            padding: 5px;
+            font-size: 15px;
+            border-collapse: collapse;
+        }
+    </style>
+    <ul>
+
+        <li>Surname:{{data.surname}}</li>
+        <li>First Name :{{data.first_name}}</li>
+        <li> Other Name :{{data.other_names}}</li>
+        <li>Level :{{data.course_applied_for}}</li>
+        <li>Course Name :{{data.course_name}}</li>
+    </ul>
+    <sup> Applied on :  {{data.date_added}}</sup><br>
+
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+    <ul>
+
+
+        <li>Gender :{{data.gender}}</li>
+        <li>D.O.B :{{data.dob}}</li>
+        <li>NATIONALITY :{{data.nationality}}</li>
+        <li>COUNTY :{{data.county}}</li>
+        <li>DISTRICT :{{data.district}}</li>
+        <li>TOWN :{{data.town}}</li>
+        <li>EMAIL : {{data.email}}</li>
+        <li>PARENT TEL :{{data.parent_or_guardian_tel}}</li>
+        <li>SUTUDENT TEL :{{data.student_tel}}</li>
+
+    </ul>
+    </ul>
+    <br>
+    <br>
+    <br> APPROVED
+    <br>
+    <div class="box">
+
+    </div>
+    <br> REJECTED
+    <br>
+    <div class="box">
+
+    </div>
+
+    <br> Sign...............................................Stamp......................................................................................
+    <style>
+        li {
+            padding: 5px;
+        }
+        
+        .box {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+    </style>
+    <br>
+
+
+</body>
+
+</html>

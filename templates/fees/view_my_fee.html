@@ -1,0 +1,52 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-12 card">
+                
+                    <div class="card">
+                        <center>
+                            <h4 style="width: 100%;">FEES AMOUNT THIS TERM  :   KES {{amount}}</h4>
+                          
+                        </center>
+                       
+                    </div>
+
+
+
+   
+                    {% if my_fee %}
+                    <h4 style="width: 100%;" class="btn btn-info disabled">FEES STATEMENT</h4>
+               
+                    <table class="table table-bordered table-hover table-responsive-lg">
+                        <tr style="background-color: black;color:white;">
+                            <td>Date Paid</td>
+                            <td>Year</td>
+                            <td>Term</td>
+                            <td>Previous Arrears</td>
+                            <td>Amount Paid</td>
+                            <td>Current Arrears</td>
+                        </tr>
+                        {% for x in my_fee %}
+                        <tr>
+                            <td>{{x.date_added}}</td>
+                            <td>{{x.year}}</td>
+                            <td>{{x.term}}</td>
+                            <td>KES {{x.previous_arrears}}</td>
+                            <td>KES {{x.amount_paid}}</td>
+                            <td>KES {{x.current_arrears}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+
+                    </ul>
+                    <a target="_blank" href="{% url 'pdfstudentfeesstatement' %}">Download Fees Statement </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'AddElearningLibraryResouurce' %}">ADD</a> E-LEARNING RESOURCES I HAVE SUBMITTED <b class=" btn btn-warning float-right ">Total  {{count}}  </b></button>
+
+                    <table class="table table-bordered  table-responsive-lg ">
+                        <tr style="background-color: coral;">
+                            <th>Course </th>
+                            <th>Unit </th>
+                            <th>Typed Notes</th>
+                            <th>Notes / resources Files</th>
+                            <th>Date Added</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in resources %}
+                        <tr>
+                            <td>{{x.course}}</td>
+                            <td>{{x.unit}}</td>
+                            <td style="  word-break: break-all;">{{x.typed_notes}}</td>
+                            {% if x.file %}
+                            <td><a href="{{x.file.url}}">{{x.file}}</a></td>
+                            {% else %}
+                            <td>NO FILE</td>
+                            {% endif %}
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'UpdateElearningLibraryResouurce' x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_elearning_resource' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

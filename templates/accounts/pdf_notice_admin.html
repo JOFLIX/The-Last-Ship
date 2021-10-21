@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice</title>
+    <style>
+        @page {
+            size: A4 LANDSCAPE;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h2> {{school_name}}</h2>
+    </center>
+
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div>
+    {% if notice %} {% for x in notice %}
+    <center>
+        <h4> {{x.title|upper}}</h4>
+    </center>
+    <div class="card">
+        <p> {{x.description|upper}}</p>
+    </div>
+    {% endfor %}
+
+    <br> {% endif %}
+
+    <br>
+
+
+</body>
+
+</html>

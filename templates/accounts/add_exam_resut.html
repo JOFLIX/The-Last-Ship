@@ -1,0 +1,39 @@
+{% extends 'accounts/basedashboard.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div style="padding: 10px;" class="col-md-12 shadow">
+                            <center>
+                                <h1 style="width: 100%;" class="btn btn-info disabled"><a class="btn btn-success float-left" href="{% url 'view_results_admin' %}">View</a> ADD EXAMINATION RESULTS  <b class="float-right btn btn-warning"> Total Results</b></h1>
+                            </center>
+                            <hr>
+<center>You can add result for each student here or <b style="color: green;">upload a bulk examination result</b> in the admin dashboard.  to open admin Click <a href="{% url 'admin:index' %}"> Here</a></center>
+                            <hr>
+                            <form method="POST">
+                             {% csrf_token %} {{ form|crispy }}
+                                <button style="width: 60%;" class=" btn btn-success " type="submit"> SUBMIT</button>
+                        <a style="width: 30%;" class="btn btn-info" href="{% url 'dashboard' %}">Dashboard</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <style>
+                .asteriskField {
+                    content: "*";
+                    color: red;
+                    font-size: 20px;
+                    padding: 5px;
+                }
+                
+                label {
+                    color: black;
+                }
+            </style>
+            
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'add_timetable' %}">ADD</a> ALL TIMETABLES <b class=" btn btn-warning float-right ">Total  {{c}}  </b></button>
+                    <br><br>
+                    <form class="card" style="padding: 10px;" action="" method="GET">
+                        <div class="row">
+                            <div class="col-md-2">
+                                {{form.form.day|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.unit_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.lecturer_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.class_ID|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.lecturer_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                <br>
+                                <button class="btn btn-primary" style="width:100%;">Search</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <table class="table table-bordered  table-responsive-lg table-striped">
+                        <tr style="background-color: white;">
+                            <th>CLASS </th>
+                            <th>UNIT</th>
+                            <th>LECTURER</th>
+                            <th>LECTURER NO</th>
+                            <th>TIME</th>
+                            {% for x in obj %} {% if x.class_link %}
+                            <th>CLASS LINK </th>
+                            {% endif %} {% if x.room %}
+                            <th>ROOM </th>
+                            {% endif %} {% endfor %}
+                            <tH>DAY</tH>
+                            <th>DATE ADDED</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in obj %}
+                        <tr>
+                            <td>{{x.class_ID}}</td>
+                            <td>{{x.unit_name}}</td>
+                            <td>{{x.lecturer_name}}</td>
+                            <td>{{x.lecturer_number}}</td>
+                            <td>{{x.time_dulation}}</td>
+                            {% if x.class_link %}
+                            <td><a target="_blank" href="{{x.class_link}}">Join</a></td>
+                            {% endif %} {% if x.room %}
+                            <td>{{x.room}}</td>
+                            {% endif %}
+                            <td>{{x.day}}</td>
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'update_timetable'  x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_timetable' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

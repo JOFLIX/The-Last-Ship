@@ -1,0 +1,37 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'add_all_students_announcements' %}">ADD</a> ALL STUDENTS ANNOUNCEMENTS  / NOTICES <b class=" btn btn-warning float-right ">Total  {{announcement_count}}</b></button>
+                    <table class="table  table-bordered table-hover table-responsive">
+                        <tr class="bg-success">
+                            <th>Title</th>
+                            <th>Announcement</th>
+                            <th>Date Added</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in all_announcements %}
+                        <tr>
+                            <td>{{x.title}}</td>
+                            <td>{{x.announcement}}</td>
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'update_all_students_announcements'  x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_students_announcements' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

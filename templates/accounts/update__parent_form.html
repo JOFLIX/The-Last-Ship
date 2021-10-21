@@ -1,0 +1,47 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load static %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-12 card" style="padding: 20px;">
+                    {% if form.errors %}
+
+                    <div class="jumbotron">
+                        <h3 style="color: blue;">Correct The Following Errors </h3>
+                        <b style="color:red;"> {{form.errors}}</b>
+                    </div>
+
+                    {% endif %} {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <h1 class="btn btn-info disabled" style="width: 100%;"><a href="#" class="btn btn-warning float-left ">View</a> PARENT UPDATE </h1>
+                    <form action="" method="post">
+                        {% csrf_token %} {{form|crispy}}
+                        <button class="btn btn-primary" style="width: 100%;">UPDATE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .checkboxinput {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .asteriskField {
+        content: '*';
+        color: red;
+        padding: 5px;
+        font-size: 16px;
+    }
+    
+    .form-check-label {
+        padding: 16px;
+    }
+</style>
+
+<script>
+    document.getElementById("div_id_is_superuser").style.display = "none";
+</script>
+{% endblock content %}

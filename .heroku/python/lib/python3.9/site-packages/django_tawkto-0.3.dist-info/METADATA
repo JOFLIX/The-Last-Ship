@@ -1,0 +1,100 @@
+Metadata-Version: 2.1
+Name: django-tawkto
+Version: 0.3
+Summary: A simple Django app to integrates with https://www.tawk.to/ chat.
+Home-page: https://github.com/CleitonDeLima/django-tawkto
+Author: Cleiton de Lima
+Author-email: cleiton.limapin@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Description-Content-Type: text/markdown
+
+# django-tawkto
+
+django-tawkto is a simple Django app to it integrates with https://www.tawk.to/ chat.
+
+### Quick start
+
+Install the stable release from pypi (using pip):
+
+```bash
+pip install django-tawkto
+```
+
+Add `tawkto` to your INSTALLED_APPS setting like this:
+
+```python
+INSTALLED_APPS = [
+    ...
+    'tawkto',
+]
+```
+
+Add `TAWKTO_ID_SITE` in settings.py:
+
+```python
+TAWKTO_ID_SITE='<tawkto id site>'
+```
+
+(Optional) Add `TAWKTO_API_KEY`:
+
+```python
+TAWKTO_API_KEY='<tawkto api key>'
+```
+
+(Optional) For secure site (requires `TAWKTO_API_KEY`):
+
+```python
+TAWKTO_IS_SECURE=True
+```
+
+In HTML:
+
+```djangotemplate
+{% load tawkto_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    ...
+</head>
+<body>
+    ...
+    {% tawkto_script %}
+</body>
+</html>
+```
+
+6. Add visitor `name` and `email`:
+
+```djangotemplate
+{% tawkto_script user_name=request.user.get_full_name user_email=request.user.email %}
+```
+
+7. Use a different widget for a given property:
+
+```djangotemplate
+{% tawkto_script widget_id='somewidgetid' %}
+```
+
+8. Use a different tawkto property:
+
+```djangotemplate
+{% tawkto_script id_site='tawktosideit' api_key='tawktoapikey'%}
+```
+
+

@@ -1,0 +1,80 @@
+{% extends 'accounts/basedashboard.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    <button style="width: 100%;" class="btn btn-info">UPDATE STUDENT DETAILS </button> <br><br>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-3">{{form.registration_number|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.email|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.first_name|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.last_name|as_crispy_field}}</div>
+                     
+                            <div class="col-md-2">{{form.is_active|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.gender|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.class_assigned|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.national_ID|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.official_picture|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.intake|as_crispy_field}}</div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-2">{{form.dob|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.student_term|as_crispy_field}}</div>
+
+                            <div class="col-md-2">{{form.phone|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.course_assigned|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.department|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.gender|as_crispy_field}}</div>
+
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-3">{{form.next_of_kin|as_crispy_field}}</div>
+                            <div class="col-md-5">{{form.next_of_kin_phone|as_crispy_field}}</div>
+                            <div class="col-md-4">{{form.is_student|as_crispy_field}}</div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button style="width: 100%;" class="btn btn-primary">Save Changes </button> <br><br>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: '*';
+        color: red;
+        padding: 5px;
+        font-size: 17px;
+    }
+    
+    .form-check-label {
+        padding: 30px;
+    }
+    
+    label {
+        color: black;
+    }
+    
+    .checkboxinput {
+        width: 45px;
+        height: 45px;
+    }
+</style>
+
+{% endblock %}

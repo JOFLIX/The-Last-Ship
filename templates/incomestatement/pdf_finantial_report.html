@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finantial Report </title>
+    <style>
+        @page {
+            size: A4 LANDSCAPE;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i> Report</i></sup>
+
+
+    </center>
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid rgb(78, 1, 1);
+            padding: 10px;
+            font-size: small;
+            max-width: 400px;
+            width: 100% !important;
+            border-collapse: collapse;
+            font-size: 17px;
+        }
+    </style>
+
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+    <table>
+        <tr>
+            <th colspan="1">FEES REVENUE </th>
+            <th>OTHER REVENUE</th>
+            <th>NET REVENUE</th>
+            <th>TAX = (total revenue x tax rate)</th>
+            <th>EXPENSES</th>
+            <th>NET PROFIT = (net revenue - (expenses + tax ))</th>
+        </tr>
+        <tr>
+            <td>KES {{amount_paid}}</td>
+            <td>KES {{revenue_amount}}</td>
+            <td>KES {{net_revenue}}</td>
+            <td> Tax : KES {{tax}} = KES {{tax_rate }} X KES {{net_revenue}} </td>
+            <td> KES {{tota_expenses}}</td>
+            <td>KES {{net_profit}}</td>
+        </tr>
+    </table>
+    <ul>
+        <li>TOTAL ASSETS : KES {{asset_amount}}</li>
+        <li>TOTAL LIABILITIES : KES {{Liabilities_amount}}</li>
+    </ul>
+    <div class="jumbotron">
+        <center>
+
+            <H3>Trading Balance</H3>
+
+
+            <h4><b style="color: cornflowerblue;">Total Assets KES {{asset_amount}}</b> - <b style="color:green;">Total Liabilities KES {{Liabilities_amount}}</b> = <b style="color:dark;">Trading balance KES {{trading_balance}}</b></h4>
+        </center>
+    </div>
+
+</body>
+
+</html>

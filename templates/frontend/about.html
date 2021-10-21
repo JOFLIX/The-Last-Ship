@@ -1,0 +1,124 @@
+{% extends 'accounts/base.html' %} {% block content %} {% load crispy_forms_tags %}
+<br><br>
+<br>
+<br>
+<br><br>
+<br>
+<!-- Intro -->
+
+<div class="intro">
+    <div class="container">
+        <div class="row row-eq-height">
+            {% for x in a %}
+            <!-- Intro Content -->
+            <div class="col-lg-8">
+                <div class="intro_content">
+                    <div class="section_title_container">
+                        <div class="section_subtitle"></div>
+                        <div class="section_title">
+                            <h1>Who we are</h1>
+                        </div>
+                    </div>
+                    <div style="padding: 10px;" class="card">
+                        <p>
+                            {{x.about_us_full_description}}
+                        </p>
+                    </div>
+                    <div class="button intro_button">
+                        <a href="#"></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intro Image -->
+            <div class="col-lg-4 intro_col">
+                <br>
+
+                <div class="intro_image">
+                    <div class="background_image" style="background-image:url()"></div>
+                    <img style="max-height: 600px;min-width:600px;" src="{{x.about_us_img.url}}" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <center>
+            <h1>
+                <u>       GALLERY</u>
+            </h1>
+        </center>
+    </div>
+</div>
+<div class="row woo">
+    {% if x.gallery1 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery1.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery2 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery2.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery3 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery3.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery4 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery4.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery5 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery5.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery6 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery6.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery7 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery7.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery8 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery8.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery9 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery9.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery10 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery10.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery11 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery11.url}}" alt="">
+    </div>
+    {% endif %} {% if x.gallery12 %}
+    <div class="col-md-3 inner">
+        <img style="width: 100%;height:300px;" src="{{x.gallery12.url}}" alt="">
+    </div>
+    {% endif %}
+
+
+
+
+</div>
+
+<style>
+    .inner {
+        overflow: hidden;
+    }
+    
+    .inner img {
+        transition: all 9s ease;
+    }
+    
+    .inner:hover img {
+        transform: scale(2);
+    }
+</style>
+{% endfor %} {% endblock %}

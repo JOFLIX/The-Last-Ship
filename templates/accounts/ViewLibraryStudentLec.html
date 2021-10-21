@@ -1,0 +1,41 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 ">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; font-size:21px;" class="btn btn-primary"> E-LEARNING LIBRARY <b class=" btn btn-warning float-right ">Total  {{count}}  </b></button>
+                    <center>
+                        <h6>You Can Search for the available Notes Here</h6>
+                    </center>
+                    <form style="padding: 10px;" class="card" action="" method="GET">
+                        <div class="row" style="padding: 10px;">
+                            <div class="col-md-4">{{form.form.course|as_crispy_field}}</div>
+                            <div class="col-md-4">{{form.form.unit|as_crispy_field}}</div>
+                            <div class="col-md-4"><br><button class="btn btn-success" style="width: 100%;">Search</button></div>
+                        </div>
+                    </form>
+
+                    {% for x in resources %}
+                    <hr>
+                    <div style="padding: 10px;" class="card">
+                        <b style="color: green;">Course :</b><b>{{x.course}}</b>
+                        <b style="color: green;">Unit :</b><b>{{x.unit}}</b>
+                        <b style="color: green;">Notes :</b>
+                        <p style="padding: 7px;">{{x.typed_notes}}</p> {% if x.file %}
+                        <b style="color: green;">File :</b>
+                        <p><a href="{{x.file.url}}">Download {{x.file}}</a></p> {% endif %} {% endfor %}
+                        <hr>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

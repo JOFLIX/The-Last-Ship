@@ -1,0 +1,95 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 ">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; font-size:20px;" class="btn btn-info disabled"> <a class="btn btn-secondary float-left" href="{% url 'pdf_assignment_export'%}">Download PDF</a> MY ASSIGNMENTS <b class=" btn btn-warning float-right ">Total  {{count}}</b></button>
+                    <br><br>
+                    <ol>
+
+
+                        {% for x in asg %}
+
+                        <div style="padding: 20px;" class="card">
+                            <li>
+                                <h5><b style="color: green;">Heading :</b> {{x.assignment_title}}</h5>
+                                <p style="padding: 5px;"><b style="color: blue;">Instructions :</b> <i>{{x.assignment_instructions}}</i></p>
+                                <p style="padding: 5px;"><b style="color: hotpink;">Questions :</b> {{x.questions}}</p>
+                                {% if x.file %}
+                                <i>Assignment File <a href="{{x.file.url}}">{{x.file}}</a></i> {% endif %}
+                                <b style="color: red;">Deadline {{x.deadline}}  </b>
+                                <br> <b class="btn btn-info disabled"> assignment code  {{x.user}}</b>
+                            </li>
+                            {% endfor %}
+
+                        </div>
+                        {% if asg %}
+                        <div style="padding:20px;" class="card">
+                            <center>
+                                <h2>SUBMIT ASSIGNMENTS</h2>
+                                <hr>
+                            </center>
+                            <form class="bg-light" style="padding: 10px;" action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        {{form.assignment_code|as_crispy_field}}
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{form.file|as_crispy_field}}
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{form.class_name|as_crispy_field}}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button style="width: 100%;" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <center>
+                                <h3 class="btn btn-info disabled" style="width:100%;">MY SUBMITTED ASSIGNMENTS</h3>
+                            </center>
+                            <table class="table table-bordered table-responsive-sm">
+                                <tr>
+                                    <th>Assignment Code</th>
+
+                                    <th>My Class</th>
+                                    <th>File</th>
+                                    <th>Date Submitted</th>
+                                    <th>Action</th>
+                                    <th>Action</th>
+                                </tr>
+                                {% for x in a %}
+                                <tr>
+                                    <td>{{x.assignment_code}}</td>
+                                    <td>{{x.class_name}}</td>
+                                    <td><a href="{{x.file.url}}">{{x.file}}</a></td>
+                                    <td>{{x.date_added}}</td>
+                                    <td><a href="{% url 'update_assignment_student' x.id %}">Update</a></td>
+                                    <td><a href="{% url 'delete_upload_student_own_assignment' x.id %}">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            {% else %}
+                            <center>
+                                <h1>NO ASSIGNMENTS YET</h1>
+                            </center>
+                            {% endif %}
+                        </div>
+
+                    </ol>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,570 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %} {% if request.user.is_superuser %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h6>{{student_count}}</h6>
+
+                            <p>Student(s) , Active {{active_students}} <a class="btn btn-sm btn-secondary badge badge-pill" style="color: yellow;" href="{% url 'vw_en_fee' %}">Generate Admision Form</a></p>
+                           
+
+                            <a style="color: yellow;" href="{% url 'admin_view_online_aplications' %}">Online Applications <b class="btn btn-primary badge badge-pill">{{online_application_count}}</b> </a>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="{% url 'View_all_students' %}" class="small-box-footer">Students More info  <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{superuser_count}}<sup style="font-size: 20px"></sup></h3>
+
+                            <p>Superuser (s)</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="{% url 'member_staff' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{all_users}}</h3>
+
+                            <p>Total System Users</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="{% url 'add_fee' %}" class="small-box-footer btn btn-secondary">Add Fee</i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h666>{{lecturers_count}}</h666>
+
+
+                            <p> Lecturer(s) , Active {{active_lecturers}}</p>
+
+                            <a class=" btn btn-warning badge badge-pill " style="color:blue;" href="{% url 'sms' %}"> Send Text Messages </a>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{% url 'view_all_lecturers' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 card">
+                <input type="hidden" id="superusers" name="variable" value="{{ superuser_count }}">
+                <input type="hidden" id="allusers" name="variable" value="{{ all_users }}">
+                <input type="hidden" id="students" name="variable" value="{{ student_count }}">
+                <input type="hidden" id="lecturers" name="variable" value="{{ lecturers_count }}">
+                <input type="hidden" id="online_application_count" name="variable" value="{{ online_application_count }}">
+                <input type="hidden" id="messages_count" name="variable" value="{{ messages_count }}">
+                <input type="hidden" id="total_active_user" name="variable" value="{{ total_active_user }}">
+                <input type="hidden" id="total_parents" name="variable" value="{{ total_parents }}">
+                <canvas id="chart" width="500" height="350"></canvas>
+                <script>
+                    var superusers = document.getElementById("superusers").value;
+                    var all_users = document.getElementById("allusers").value;
+                    var students = document.getElementById("students").value;
+                    var lecturers = document.getElementById("lecturers").value;
+                    var online_application_count = document.getElementById("online_application_count").value;
+                    var messages_count = document.getElementById("messages_count").value;
+
+
+                    var data = '{{data}}';
+                    let ctx = document.getElementById("chart").getContext("2d");
+                    let chart = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: ["Students", "Lecturers", "Superusers", "Total Users", " Online Applications", "Messages"],
+                            datasets: [{
+                                label: "System Users(Total)",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#333", "#333"],
+                                borderColor: "green",
+                                data: [students, lecturers, superusers, all_users, online_application_count, messages_count]
+                            }]
+                        },
+                        options: {
+                            title: {
+                                text: "Current System Graphical Analytics",
+                                display: true
+                            }
+                        }
+                    });
+                </script>
+
+            </div>
+            <div class="col-md-5 card">
+                <canvas id="pie-chart" width="800" height="450"></canvas>
+                <script>
+                    var students = document.getElementById("students").value;
+                    var lecturers = document.getElementById("lecturers").value;
+                    var superusers = document.getElementById("superusers").value;
+                    var total_active_user = document.getElementById("total_active_user").value;
+
+
+                    var data = '{{data}}';
+                    new Chart(document.getElementById("pie-chart"), {
+                        type: 'pie',
+                        data: {
+                            labels: ["Students", "Lecturers", "Superusers", "Active Users"],
+                            datasets: [{
+                                label: "Population (millions)",
+                                backgroundColor: ["green", "yellow", "red", 'greenyellow'],
+                                data: [students, lecturers, superusers, total_active_user]
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'Users'
+                            }
+                        }
+                    });
+                </script>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 card">
+                <canvas id="polar-chart" width="300" height="100"></canvas>
+                <script>
+                    var students = document.getElementById("students").value;
+                    var lecturers = document.getElementById("lecturers").value;
+                    var superusers = document.getElementById("superusers").value;
+                    var total_parents = document.getElementById("total_parents").value;
+
+                    new Chart(document.getElementById("polar-chart"), {
+                        type: 'polarArea',
+                        data: {
+                            labels: ["Students", "Lectures", "Superusers", "Parents"],
+                            datasets: [{
+                                label: "Population (millions)",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                                data: [students, lecturers, superusers, total_parents]
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'Predicted world population (millions) in 2050'
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <div class="col-md-6 card ">
+
+            </div>
+        </div>
+    </section>
+</div>
+{% endif %} {% if request.user.is_student %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3> Class Code</h3>
+
+                            <p> {{request.user.class_assigned}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">  ADM : {{request.user}}</i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h5><sup style="font-size: 20px">COURSE</sup></h5>
+
+                            <p>{{student_course}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>Email</h3>
+
+                            <p>{{student_email}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer"> {{request.user.module}}</i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>Department</h3>
+
+                            <p>{{student_department}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 card">
+                <input type="hidden" id="timetable_count" name="variable" value="{{ timetable_count }}">
+                <input type="hidden" id="online_classs_count" name="variable" value="{{ online_classs_count }}">
+                <input type="hidden" id="messages_count" name="variable" value="{{ messages_count }}">
+                <input type="hidden" id="assignment_count" name="variable" value="{{ assignment_count }}">
+                <canvas id="bar-chart" width="800" height="335"></canvas>
+                <script>
+                    var timetable_count = document.getElementById("timetable_count").value;
+                    var online_classs_count = document.getElementById("online_classs_count").value;
+                    var messages_count = document.getElementById("messages_count").value;
+                    var assignment_count = document.getElementById("assignment_count").value;
+                    new Chart(document.getElementById("bar-chart"), {
+                        type: 'bar',
+                        data: {
+                            labels: ["Assignments", "Messages", "Online Classes", "Lessons"],
+                            datasets: [{
+                                label: "Total (numbers)",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                                data: [assignment_count, messages_count, online_classs_count, timetable_count]
+                            }]
+                        },
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'My Data'
+                            }
+                        }
+                    });
+                </script>
+                <center>
+                    <h5>TIMETABLE</h5>
+                </center>
+                <form class="bg-light" style="padding: 10px;" action="" method="GET">
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{form.form.day|as_crispy_field}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form.form.unit_name|as_crispy_field}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form.form.lecturer_name|as_crispy_field}}
+                        </div>
+                        <div class="col-md-3">
+                            <br>
+                            <button style="width: 100%;" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-bordered table-active table-responsive-lg table-hover table-striped">
+                    <tr style="background-color: cadetblue;">
+                        <th>DAY</th>
+                        <th>CLASS ID</th>
+                        <th>UNIT NAME</th>
+                        <th>LECTURER NAME</th>
+                        <th>TIME</th>
+                        
+                        <th>CLASS LINK </th>
+                    
+                        <th>ROOM </th>
+                        
+                        <th>DATE ADDED</th>
+                    </tr>
+                    {% for x in timetable %}
+                    <tr>
+                        <td>{{x.day}}</td>
+                        <td>{{x.class_ID}}</td>
+                        <td>{{x.unit_name}}</td>
+                        <td>{{x.lecturer_name}}</td>
+                        <td>{{x.time_dulation}}</td>
+                        {% if x.class_link %}
+                        <td><a target="_blank" href="{{x.class_link}}">Join</a></td>
+                        {% endif %} {% if x.room %}
+                        <td>{{x.room}}</td>
+                        {% endif %}
+                        <td>{{x.date_added}} </td>
+
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a style="width: 100%;" class="btn btn-success" target="_blank" href="{% url 'pdf_timetable_export' %}">Click Here to Download Timetable </a>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+{% endif %} {% if request.user.is_lecturer %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{request.user.registration_number}} </h3>
+
+                            <p>My Lecturer Number </p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer"></i>
+                            Joined : {{request.user.date_joined}}
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h4><sup style="font-size: 20px">Department</sup></h4>
+
+                            <p>{{request.user.department}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>Email</h3>
+
+                            <p>{{request.user.email}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Last Seen {{request.user.last_login}}</a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{timetable_count}}</h3>
+
+                            <p>Total Lessons</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 card">
+                <input type="hidden" id="timetable_count" name="variable" value="{{ timetable_count }}">
+                <input type="hidden" id="messages_count" name="variable" value="{{ messages_count }}">
+
+
+                <canvas id="bar-chart" width="800" height="335"></canvas>
+                <script>
+                    timetable_count = document.getElementById('timetable_count').value;
+                    timetable_count = document.getElementById('messages_count').value;
+                    new Chart(document.getElementById("bar-chart"), {
+                        type: 'bar',
+                        data: {
+                            labels: ["Lessons", "Messages"],
+                            datasets: [{
+                                label: "Total (numbers)",
+                                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"],
+                                data: [timetable_count, timetable_count]
+                            }]
+                        },
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'data'
+                            }
+                        }
+                    });
+                </script>
+                <center>
+                    <h5>TIMETABLE</h5>
+                </center>
+                <form class="bg-light" style="padding: 10px;" action="" method="GET">
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{form.form.day|as_crispy_field}}
+                        </div>
+                        <div class="col-md-2">
+                            {{form.form.unit_name|as_crispy_field}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form.form.class_ID|as_crispy_field}}
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <br>
+                            <button style="width: 100%;" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-bordered table-active table-responsive-lg table-hover table-striped">
+                    <tr style="background-color: cadetblue;">
+                        <th>DAY</th>
+                        <th>CLASS ID</th>
+                        <th>UNIT NAME</th>
+
+                        <th>TIME</th>
+                        <th>ROOM</th>
+                        <th>DATE ADDED</th>
+                    </tr>
+                    {% for x in timetable %}
+                    <tr>
+                        <td>{{x.day}}</td>
+                        <td>{{x.class_ID}}</td>
+                        <td>{{x.unit_name}}</td>
+
+                        <td>{{x.time_dulation}}</td>
+                        <td><a target="_blank" href="{{x.class_link}}">Join</a></td>
+                        <td>{{x.date_added}}</td>
+
+                    </tr>
+                    {% endfor %}
+                </table>
+                <a target="_blank" class="btn btn-success" style="width: 100%;" href="{% url 'pdf_timetable_export_lecturer' %}">Download Timetable</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% endif %} {% if request.user.is_parent %}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h6>{{request.user}}</h6>
+
+                            <p>Parent User Name</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Member Since : {{request.user.date_joined}} <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h6>{{request.user.student_number}}<sup style="font-size: 20px"></sup></h6>
+
+                            <p>Student(s) Registration Number</p>
+                           
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Last Seen {{request.user.last_login}} <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h6>Course Name</h6>
+
+                            <p>{{student_course}}</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h6>Student Name</h6>
+
+
+                            <p> {{request.user.get_full_name}} </p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Student Class {{class_assigned}} <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <center>
+                        <h3>Dear {{request.user.get_full_name|upper}} , WELCOME TO PARENT PANEL </h3>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+
+
+        {% endif %} {% endblock content %}

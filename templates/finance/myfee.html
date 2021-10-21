@@ -1,0 +1,63 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-12 shadow">
+                    <center>
+                        <h4 style="width: 100%;" class="btn btn-info disabled">FEES STRUCTURE THIS TERM</h4>
+                        Click <a target="_blank" href="{% url 'studentfeestructure' %}">Here</a> to download
+                    </center>
+
+                    <table class="table table-bordered table-hover table-responsive-lg table responsive">
+                        <tr style="background-color: white;">
+                            <td> Particular</td>
+                            <td>Amount</td>
+                        </tr>
+                        {% for x in fees_particular %}
+                        <tr>
+                            <td>{{x.particular_name}} </td>
+                            <td>KES {{x.amount}}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr style="background-color: white;">
+                            <td>Total</td>
+                            <td> KES {{amount_payable}}</td>
+                        </tr>
+                    </table>
+
+                    {% if my_fee %}
+                    <h4 style="width: 100%;" class="btn btn-info disabled">FEES STATEMENT</h4>
+                    <center>
+                        Click <a href="{% url 'studentfeestatement' %}"> Here </a> to download
+                    </center>
+                    <table class="table table-bordered table-hover table-responsive-lg">
+                        <tr style="background-color: black;color:white;">
+                            <td>Date Paid</td>
+                            <td>Year</td>
+                            <td>Term</td>
+                            <td>Previous Arrears</td>
+                            <td>Amount Paid</td>
+                            <td>Current Arrears</td>
+                        </tr>
+                        {% for x in my_fee %}
+                        <tr>
+                            <td>{{x.date_paid}}</td>
+                            <td>{{x.year}}</td>
+                            <td>{{x.term}}</td>
+                            <td>KES {{x.prev_arrears}}</td>
+                            <td>KES {{x.amount_paid}}</td>
+                            <td>KES {{x.current_arrears}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

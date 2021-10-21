@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM</title>
+    <style>
+        @page {
+            size: A4 ;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+  
+
+
+    </center>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid rgb(78, 1, 1);
+            padding: 5px;
+            font-size: 15px;
+            border-collapse: collapse;
+        }
+    </style>
+<sup>Receipt Number: #{{data.id}}</sup> <br>
+<sup>Received From :{{data.received_from}}</sup> <br>
+<sup>Reg No :{{data.reg_no}}</sup> <br>
+    <sup><b>Printed By  </b>  :{{u}} </sup><br>
+
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+
+<table style="width: 100%;">
+    <tr>
+        <td>Registration/Admission fee</td>
+        <td>{{data.Registration_admission_fee}}</td>
+    </tr>
+    <tr>
+        <td>Tution fee</td>
+        <td>{{data.Tution_fee}}</td>
+    </tr>
+    <tr>
+        <td>Boarding hostel fees</td>
+        <td>{{data.boarding_hostel_fees}}</td>
+    </tr>
+    <tr>
+        <td>Repair and maintanance</td>
+        <td>{{data.repair_and_maintanance}}</td>
+    </tr>
+    <tr>
+        <td>Electricity water and conservancy</td>
+        <td>{{data.electricity_water_and_conservancy}}</td>
+    </tr>
+    <tr>
+        <td>Activity fund</td>
+        <td>{{data.activity_fund}}</td>
+    </tr>
+    <tr>
+        <td>Medical fund insurance</td>
+        <td>{{data.medical_fud_insurance}}</td>
+    </tr>
+    <tr>
+        <td>Rent hire</td>
+        <td>{{data.rent_hire}}</td>
+    </tr>
+    <tr>
+        <td>Examination</td>
+        <td>{{data.examination}}</td>
+    </tr>
+    <tr>
+        <td>Computer studies</td>
+        <td>{{data.computer_studies}}</td>
+    </tr>
+    <tr>
+        <td>Production contracts</td>
+        <td>{{data.production_contracts}}</td>
+    </tr>
+    <tr>
+        <td>Evening classes</td>
+        <td>{{data.evening_classes}}</td>
+    </tr>
+    <tr>
+        <td>citc_uniform/badge/id_card/T_shirt</td>
+        <td>{{data.citc_uniform_badge_id_card_t_shirt}}</td>
+    </tr>
+    <tr>
+        <td>Sundry debtors / fees arrears</td>
+        <td>{{data.sundry_debtors_fees_arrears}}</td>
+    </tr>
+    <tr>
+        <td>income Genarating</td>
+        <td>{{data.income_genarating_act}}</td>
+    </tr>
+    <tr>
+        <td>Miscellaneous</td>
+        <td>{{data.miscellaneous}}</td>
+    </tr>
+    <tr>
+        <td>Total</td>
+        <td>{{data.total}}</td>
+    </tr>
+</table>
+
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+<sub>Payment Method.........................................................Sign....................................................</sub> <br>
+<br> <br> <br> <br>
+<center><sub>Fees once paid is not refundable</sub></center>
+<b></b>
+</body>
+
+</html>

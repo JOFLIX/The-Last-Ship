@@ -1,0 +1,263 @@
+{% extends 'accounts/base.html' %} {% block content %} {% load crispy_forms_tags %}
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- Intro -->
+<div style="padding:20px;" class="row">
+    <div class="col-md-12">
+        <center>
+            <h1>Our Courses</h1>
+
+        </center>
+        <style>
+            table tr td {
+                color: black;
+                font-size: 14px;
+            }
+        </style>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive-lg">
+                    <tr>
+                        <td style="color:green;">School Of Engineering</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Electrical Wireman Grade I,II,II</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Certificate in Electrical and Electronic Engineering</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Diploma in Electrical and Electronic Engineering</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Certificate in Computer Engineering</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td>Diploma in Computer Engineering</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td style="color:green;">School Of Business Studies
+                            <td>
+
+                    </tr>
+                    <tr>
+                        <td>Business Management</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+
+                        <td>Certificate in Business Management</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Human Resourse</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Certificate in Human Resourse</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Sales and Marketing</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Certifacate in Sales and Marketing</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Supply Chain Management</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Certificate in Supply Chain Management</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Salesmanship</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Store Keeping</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td style="color:green;">School Of Education</td>
+
+                    </tr>
+                    <tr>
+                        <td> Certificate in Early Childhood Education(in service)</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Diploma in Early Childhood Education(in service)</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Certificate in Early Childhood Education(Fulltime)</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td>Diploma in Early Childhood Education(Fulltime)</td>
+                        <td>KNEC</td>
+                    </tr>
+                    <tr>
+                        <td style="color:green;">School Of Hospitality</td>
+
+                    </tr>
+                    <tr>
+                        <td>Hospitality Management</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td>Hotel & Restaurant Management</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td>Food & Bevarage Management</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td>House keeping & Laundary</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td>Food Production</td>
+                        <td>ICM</td>
+                    </tr>
+                    <tr>
+                        <td style="color:green;">School Of Development Studies</td>
+
+                    </tr>
+                    <tr>
+                        <td>ICDL</td>
+
+                    </tr>
+                    <tr>
+                        <td>Computer Packages</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Certificate in ICT/IT</td>
+                        <td>KNEC</td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Diploma in ICT/IT</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>CCP-KCA University</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>3D Animation</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td style="color:green;">School Of Music</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Theory of Music</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Guiter Operation</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Piano Operation</td>
+
+
+                    </tr>
+                    <tr>
+                        <td> DIPLOMA IN HOUSE KEEPING & FRONT OFFICE OPERATION</td>
+
+
+                    </tr>
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:green;">School Of Languages</td>
+
+                        <tr>
+                            <td>Proficiency in English, French, Chinese, Spanish</td>
+
+                        </tr>
+
+
+                </table>
+            </div>
+        </div>
+
+
+        <!--
+        <center>
+            <h2>OUR COURSES : {{count}}</h2>
+        </center>
+        <form style="padding:20px;" class="bg-light" action="" method="GET">
+            <div class="row">
+                <div class="col-md-4">
+                    {{form.form.course_name|as_crispy_field}}
+                </div>
+                <div class="col-md-4">
+                    {{form.form.school_of|as_crispy_field}}
+                </div>
+                <div class="col-md-4">
+                    <br>
+                    <button style="width: 100%;" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+        </form>
+
+        {% if c %}
+        <table style="background-color: white;" class="  table table-responsive-lg table-hover table-striped table-sm table-bordered">
+            <tr style="background-color: yellowgreen;">
+                <th>Course Name</th>
+                <th>School </th>
+                <th>Description</th>
+                <th>Duration</th>
+
+            </tr>
+            {% for x in c %}
+            <tr>
+                <td>{{x.course_name}}</td>
+                <td>{{x.school_of}}</td>
+                <td style="word-break: break-all;">{{x.course_description}}</td>
+                <td>{{x.duration}}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <center class="jumbotron">
+            <h1>NOTHING FOUND </h1>
+            <sup>Try another search or check your spelling</sup>
+        </center>
+        {% endif %}
+        -->
+    </div>
+</div>
+{% endblock %}

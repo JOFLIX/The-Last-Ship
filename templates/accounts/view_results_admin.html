@@ -1,0 +1,118 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    <form class="card" style="padding: 10px;" action="" method="GET">
+                        <div class="row">
+
+
+                            <div class="col-md-3">
+                                {{form.form.student_registration_number|as_crispy_field}}
+
+
+                            </div>
+                            <div class="col-md-1">
+                                {{form.form.year|as_crispy_field}}
+
+
+                            </div>
+                            <div class="col-md-1">
+                                {{form.form.term|as_crispy_field}}
+
+
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.module|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.unit_name|as_crispy_field}}
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <br>
+                                <button style="width: 100%;" class="btn btn-primary"> SEARCH</button>
+
+
+                            </div>
+                        </div>
+                    </form>
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'add_exam_ressults' %}">ADD</a> ALL EXAMINATION RESULTS <b class=" btn btn-warning float-right ">Total  {{c}}  </b></button>
+                    <br>
+                    <br>
+                    <table class="table table-bordered  table-responsive-lg table-striped table-sm">
+                        <tr style="background-color:white;">
+
+                            <th>Registration Number </th>
+                            <th>Year</th>
+                            <th>Term</th>
+                            <th>Unit </th>
+                            <th>CAT MARKS</th>
+                            <th>END TERM MARKS</th>
+                            <th>TOTAL</th>
+                            <th>GRADE</th>
+                            <th>DATE ADDED </th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in exam %}
+                        <tr>
+                            <td>{{x.student_registration_number}}</td>
+                            <td>{{x.year}}</td>
+                            <td>{{x.term}}</td>
+                            <td>{{x.unit_name}}</td>
+                            <td>{{x.cat_marks}}</td>
+                            <td>{{x.end_term_marks}}</td>
+                            <td>{{x.get_total}}</td>
+                            <td>{{x.get_grade}}</td>
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'Update_exam_result' x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_exam_result' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <center>
+                        Showing page {{exam.number}} of {{ exam.paginator.num_pages }}
+                        <div class="paginator">
+                            {% if exam.has_other_pages %}
+                            <ul class="pagination">
+                                {% if exam.has_previous %}
+                                <li><a href="?page={{ exam.previous_page_number }}">Previous</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %} {% for i in exam.paginator.page_range %} {% if exam.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                                {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %} {% endfor %} {% if exam.has_next %}
+                                <li><a href="?page={{ exam.next_page_number }}">Next</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <style>
+                            .paginator ul li {
+                                padding: 20px;
+                                border: 1px solid lightblue;
+                                height: 10px;
+                            }
+                        </style>
+
+                    </center>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

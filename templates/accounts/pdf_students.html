@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>students</title>
+    <style>
+        @page {
+            size: A4 LANDSCAPE;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i>All Registered Students In School</i></sup>
+
+
+    </center>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid rgb(78, 1, 1);
+            padding: 5px;
+            font-size: 12px;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <sup><b>Printed By  </b>  :{{u}} </sup><br>
+
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+
+
+    </ul>
+    <table>
+        <tr style="background-color: black;color:wheat">
+            <th>Registration NO</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Is Active</th>
+            <th>National ID</th>
+
+            <th>Phone</th>
+            <th>Course</th>
+            <th>Department</th>
+            <th>Class Code</th>
+            <th>Gender</th>
+            <th>Intake</th>
+        </tr>
+        {% for x in students %}
+        <tr>
+            <td>{{x.registration_number}}</td>
+            <td>{{x.email}}</td>
+            <td>{{x.first_name}}</td>
+            <td>{{x.last_name}}</td>
+            <td>{{x.is_active}}</td>
+            <td>{{x.national_ID}}</td>
+
+            <td>{{x.phone}}</td>
+            <td>{{x.course_assigned}}</td>
+            <td>{{x.department}}</td>
+            <td>{{x.class_assigned}}</td>
+            <td>{{x.gender}}</td>
+            <td>{{x.intake}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+
+
+</body>
+
+</html>

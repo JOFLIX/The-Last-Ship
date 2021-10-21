@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %} {% block content %} {% load crispy_forms_tags %}
+<br><br>
+<br>
+<br>
+<br>
+<!-- Intro -->
+
+
+<div class="row">
+    <div class="col-md-12 card" style="padding:50px;">
+        {% if messages %}
+        <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+        <center>
+            <h2> <b>ALUMNI ASSOCIATION REGISTRATION FORM</b></h2>
+
+            <p> All graduates are encouraged to join the association by filling in this Alumni Registration Form:</p>
+        </center>
+        <form action="" method="post">
+            {% csrf_token %} {{form|crispy}}
+            <button class="btn btn-primary" style="width: 100%;">SUBMIT</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+    }
+    
+    input {
+        color: black;
+    }
+    
+    label {
+        color: black;
+    }
+</style>
+{% endblock %}

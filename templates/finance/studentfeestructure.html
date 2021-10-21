@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fees statement</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i>Fees Statement</i></sup>
+        <hr>
+
+    </center>
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid black;
+            padding: 10px;
+            font-size: small;
+        }
+    </style>
+    <sup><b>ADDMISION NO</b> : {{u}} </sup><br>
+    <sup><b>CLASS</b> : {{class_a}}</sup><br>
+    <sup> <b>FIRST NAME</b> : {{first_name}} </sup><br>
+    <sup><b>LAST NAME</b>  :{{last_name}} </sup><br>
+    <sup><b>PROGRAMME</b>   :{{get_programme}} </sup><br>
+    <sup><b>DEPARTMENT</b>   : {{get_department}}</sup><br>
+    <sup><b>TERM</b>   : {{current_term}}</sup><br>
+    <sup><b>YEAR</b>   : {{current_year}}</sup><br>
+    <table class="table table-bordered table-hover table-responsive-lg" style="width: 100%;">
+        <tr style="background-color: black;color:white;">
+            <td>Date Paid</td>
+            <td>Year</td>
+            <td>Term</td>
+            <td>Previous Arrears</td>
+            <td>Amount Paid</td>
+            <td>Current Arrears</td>
+        </tr>
+        {% for x in my_fee %}
+        <tr>
+            <td>{{x.date_paid}}</td>
+            <td>{{x.year}}</td>
+            <td>{{x.term}}</td>
+            <td>{{x.prev_arrears}}</td>
+            <td>{{x.amount_paid}}</td>
+            <td>{{x.current_arrears}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <br>
+
+    <style>
+        table,
+        tr,
+        td {
+            border-collapse: collapse;
+            border: 0.1px solid black;
+            padding: 10px;
+            font-size: small;
+        }
+    </style>
+</body>
+
+</html>

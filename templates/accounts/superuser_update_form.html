@@ -1,0 +1,42 @@
+{% extends 'accounts/basedashboard.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    <button style="width: 100%;" class="btn btn-info">UPDATE SUPERUSER DETAILS </button> <br><br>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %} {{form|crispy}}
+                        <button class="btn btn-primary" style="width: 100%;"> SUBMIT</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+    
+    .checkboxinput {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .form-check-label {
+        padding: 35px;
+    }
+</style>
+
+{% endblock %}

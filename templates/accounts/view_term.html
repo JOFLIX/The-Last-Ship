@@ -1,0 +1,36 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'add_term' %}">ADD</a> TERM ADDED <b class=" btn btn-warning float-right ">Total  {{term_count}}  </b></button>
+                    <hr> {% for me in messages %}{{me}}{% endfor %}
+                    <table class="table table-bordered  table-responsive-lg table-striped">
+                        <tr>
+                            <th>Term </th>
+                            <th>Added On</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in obj %}
+                        <tr>
+                            <td>{{x.term}}</td>
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'update_term_view' x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_term' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

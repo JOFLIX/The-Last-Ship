@@ -1,0 +1,53 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    {% if messages %}
+                    <i class="btn btn-success disabled " style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <center>
+                        <h1 style="width: 100%;" class="btn btn-info disabled"> SEND MESSAGE <b class="btn btn-warning float-right">Total :  {{count}}</b> </h1>
+                    </center>
+                    {% if msg %} {% for x in msg%}
+                    <br>
+                    <ul>
+                        <li style="box-shadow: 2px 3px green; word-wrap: break-word; border: 1px solid pink; width: 85%; min-height: 100px;background-color: white; border-top-left-radius: 20px; color: black; border-bottom-right-radius: 20px;"> <i> <b style="color: blue;"></b>  <br><i style="color: blue;">{{x.message}}</i></i> <b class="float-right">{{x.date_submitted}} </b></li>
+                        <br> {% if x.reply %}
+                        <li style="box-shadow: 2px 3px blue; word-wrap: break-word; width: 80%; border: 1px solid green; margin-top: -0px; min-height: 100px;background-color: white; border-top-right-radius: 30px; color: black; border-bottom-left-radius: 30px; margin-left:20%; padding: 6px;">
+                            <br>
+
+                            <p>{{x.reply}} </p><br>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% endfor %} {% endif %}
+                    <form method="POST">
+                        {% csrf_token %} {{ form|crispy }}
+                        <button style="width: 60%;" class=" btn btn-success " type="submit"> SEND</button>
+                        <a style="width: 30%;" class="btn btn-info" href="{% url 'dashboard' %}">Dashboard</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+    
+    li {
+        list-style-type: none;
+    }
+</style>
+
+{% endblock %}

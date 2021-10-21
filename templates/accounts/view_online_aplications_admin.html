@@ -1,0 +1,82 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <h1 style="width: 100%; " class="btn btn-info">ALL ONLINE APPLICATIONS<a class="btn btn-secondary disabled float-left" href="">Approved : {{approved_count}} , Not Approved : {{not_approved}}</a> <b class=" btn btn-warning float-right ">Total  {{count}}  </b></h1>
+                    <table class=" table table-responsive table-bordered table-avatar table-sm  table-head-fixed">
+                        <tr class="bg-black">
+                            <th>Approve</th>
+                            <th>Action</th>
+
+                            <th>Date Applied</th>
+                            <th>Surname</th>
+                            <th>First Name</th>
+                            <th>Other Names</th>
+                            <th>Gender</th>
+                            <th>D.O.B</th>
+                            <th>Nationality</th>
+                            <th>County</th>
+                            <th>District</th>
+                            <th>Town</th>
+                            <th>Email</th>
+                            <th>Level</th>
+                            <th>Course Name</th>
+
+
+
+                            <th>Parent Tel</th>
+                            <th>Student Tel</th>
+
+
+
+
+
+
+                        </tr>
+                        {% for x in applications %}
+                        <tr>
+                            {% if x.approved %}
+                            <td><a class="btn btn-success badge badge-pill" href="{% url 'update_online_application_approval'  x.id %}">  APPROVED </a></td>
+                            {% else %}
+                            <td><a class="btn btn-warning badge badge-pill" href="{% url 'update_online_application_approval'  x.id %}">NOT APPROVED</a></td>
+                            {% endif %}
+                            <td><a href="{% url 'pdf_export_online_application' x.id %}"> Print</a></td>
+                            <td>{{x.date_added}}</td>
+                            <td>{{x.surname}}</td>
+                            <td>{{x.first_name}}</td>
+                            <td>{{x.other_names}}</td>
+                            <td>{{x.gender}}</td>
+                            <td>{{x.dob}}</td>
+                            <td>{{x.nationality}}</td>
+                            <td>{{x.county}}</td>
+                            <td>{{x.district}}</td>
+                            <td>{{x.town}}</td>
+                            <td>{{x.email}}</td>
+                            <td>{{x.course_applied_for}}</td>
+                            <td>{{x.course_name}}</td>
+
+
+
+                            <td>{{x.parent_or_guardian_tel}}</td>
+                            <td>{{x.student_tel}}</td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    <h1 class="btn btn-primary" style="width: 100%;"> <a class="btn btn-secondary btn-sm float-right" href="{% url 'add_fee' %}">ADD FEE</a> FEES PAYMENT HISTORY</h1>
+                    <br>
+
+                    {% if messages %}
+                    <b class="btn btn-success disabled" style="width: 100%;"> {% for x in messages %}{{x}}{% endfor %}</b> {% endif %}
+                   
+                    <form class="card" style="padding:10px;" action="" method="GET">
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{form.form.user|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.term|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.year|as_crispy_field}}
+                            </div>
+                         
+
+                            <div class="col-md-3">
+                                <br>
+                                <button class="btn btn-primary" style="width: 100%;">Search</button>
+                            </div>
+                        </div>
+                        </form>
+                   
+                    <table class="table table-bordered table-sm">
+                        <tr style="color:black;" class="bg-light shadow">
+                            <td>Date Paid</td>
+                            <td>Registration number</td>
+                            <td>student name </td>
+                            <td>student course</td>
+
+                            <td>term</td>
+                            <td>year</td>
+                            <td>Payment Method </td>
+                            <td>Transaction Code</td>
+                            <td>previous arreas</td>
+                            <td>Amount paid </td>
+                            <td>current arrears</td>
+                            <td></td>
+                        
+                        
+                        </tr>
+
+                        {% for x in fees_payment_data %}
+
+                        <tr>
+                            <td>{{x.date_added}}</td>
+                            <td>{{x.registration_number}}</td>
+                            <td>{{x.student_name}}</td>
+                            <td>{{x.course_name}}</td>
+
+                            <td>{{x.term}}</td>
+                            <td>{{x.year}}</td>
+                            <td>{{x.payment_method}}</td>
+                            <td>{{x.reference_code}}</td>
+                            <td>KES {{x.previous_arrears}}</td>
+                            <td>KES {{x.amount_paid}}</td>
+                            <td><b>KES {{x.current_arrears}}</b></td>
+                            <td><a href="{% url 'print_receipt' x.id  %}">Print</a></td>
+                    
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+                    <center>
+                        Showing page {{fees_payment_data.number}} of {{ fees_payment_data.paginator.num_pages }}
+                        <div class="paginator">
+                            {% if fees_payment_data.has_other_pages %}
+                            <ul class="pagination">
+                                {% if fees_payment_data.has_previous %}
+                                <li><a href="?page={{ fees_payment_data.previous_page_number }}">Previous</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %} {% for i in fees_payment_data.paginator.page_range %} {% if fees_payment_data.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                                {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %} {% endfor %} {% if fees_payment_data.has_next %}
+                                <li><a href="?page={{ fees_payment_data.next_page_number }}">Next</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <style>
+                            .paginator ul li {
+                                padding: 20px;
+                                border: 1px solid lightblue;
+                                height: 10px;
+                            }
+                        </style>
+
+                    </center>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

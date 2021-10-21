@@ -1,0 +1,36 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row" id="proBanner">
+            <div style="padding: 20px;" class="col-12 shadow">
+ <center>
+    <h1 class="btn btn-info" style=" width: 100%;"><b>SEND AN EMAIL TO ALL STUDENTS</b> </h1>
+    <h6 style="color: red;">NB: All active will receive the email address </h6>
+    <hr>
+ </center>
+         
+ <center>
+    {% if messages %}
+    <center>
+        <div class="alert alert-success">
+            <h6> {% for x in messages %}{{x}}{% endfor%}</b></h6>
+        </div>     
+    </center>
+    {% endif %}
+</center>
+                <form class="form-group"  method="post" action="">
+                    {% csrf_token %}
+      
+                    <label style="font-size: large;color:black;" for="">Message </label>
+                    <textarea rows="10" class="form-control" autocomplete="off" name="message" placeholder="Send Mail Message..."></textarea>
+                    <br>
+                    <input style="width: 50%;" class="btn btn-primary" type="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i>My Assignments</i></sup>
+
+
+    </center>
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid rgb(78, 1, 1);
+            padding: 10px;
+            font-size: small;
+            max-width: 400px;
+            width: 100% !important;
+        }
+    </style>
+    <sup><b>ADDMISION NO</b> : {{u}} </sup><br>
+    <sup><b>CLASS</b> : {{class_a}}</sup><br>
+    <sup> <b>FIRST NAME</b> : {{first_name}} </sup><br>
+    <sup><b>LAST NAME</b>  :{{last_name}} </sup><br>
+    <sup><b>PROGRAMME</b>   :{{get_programme}} </sup><br>
+    <sup><b>DEPARTMENT</b>   : {{get_department}}</sup><br>
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+
+    </ul>
+    <table height=300 style="font-size: 10px;width: 100%;border-collapse: collapse;">
+        <thead style="color:white; font-size: bold;background-color:black">
+            <th>Heading</th>
+            <th>Instructions</th>
+            <th>Question</th>
+            <th>Deadline</th>
+        </thead>
+        {% for x in asg %}
+        <tbody>
+            <tr>
+                <td>{{x.assignment_title}}</td>
+                <td>{{x.assignment_instructions}}</td>
+                <td>{{x.questions}}</td>
+                <td>{{x.deadline}}</td>
+            </tr>
+        </tbody>
+
+        {% endfor %}
+
+    </table>
+    <div class="box">
+        {{x.questions}}
+    </div>
+    <br>
+
+
+</body>
+
+</html>

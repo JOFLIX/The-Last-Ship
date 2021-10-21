@@ -1,0 +1,25 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    <h2 style="color: red;">You are about to delete a record , this operation cannot be reversed</h2>
+                    <h1> Are you sure you want to delete "{{s}}" ?</h1>
+                    <form action="{% url 'delete_all_student_announcement' s.id %}" method="POST">
+                        {% csrf_token %}
+                        <br>
+                        <br>
+                        <button style="width: 50%;" class="btn btn-danger" type="submit" name="confirm">Confirm</button>
+                        <a style="width: 30%;" class="btn btn-success" class="btn btn-success" href="{% url 'admin_view_all_student_announcement' %}">Cancel</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

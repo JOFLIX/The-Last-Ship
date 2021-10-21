@@ -1,0 +1,54 @@
+{% extends 'accounts/base.html' %} {% block content%} {% load crispy_forms_tags %} {% load static %}
+
+<div class="col-md-12 card ">
+    {% if form.errors %}
+
+    <div class="jumbotron">
+        <h3 style="color: blue;">Correct The Following Errors </h3>
+        <b style="color:red;"> {{form.errors}}</b>
+    </div>
+
+    {% endif %} {% if messages %}
+    <b class="alert alert-success">{% for x in messages %} {{x}}{% endfor %}</b> {% endif %}
+
+    <center>
+        <br>
+        <h4 class="btn btn-info" style="width: 100%;">Christian Industrial Training Centre Mombasa</h4>
+        <sup style="color: green;">Online Application</sup>
+    </center>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">{{form.surname|as_crispy_field}}</div>
+            <div class="col-md-6">{{form.first_name|as_crispy_field}}</div>
+            <div class="col-md-12">{{form.other_names|as_crispy_field}}</div>
+            <div class="col-md-12">{{form.gender|as_crispy_field}}</div>
+            <div class="col-md-6">{{form.dob|as_crispy_field}}</div>
+            <div class="col-md-6">{{form.nationality|as_crispy_field}}</div>
+            <div class="col-md-3">{{form.national_id|as_crispy_field}}</div>
+            <div class="col-md-3">{{form.county|as_crispy_field}}</div>
+            <div class="col-md-3">{{form.district|as_crispy_field}}</div>
+            <div class="col-md-3">{{form.town|as_crispy_field}}</div>
+            <div class="col-md-3">{{form.course_applied_for|as_crispy_field}}</div>
+            <div class="col-md-3">{{form.email|as_crispy_field}}</div>
+            <div class="col-md-6">{{form.course_name|as_crispy_field}}</div>
+            <div class="col-md-6">{{form.parent_or_guardian_tel|as_crispy_field}}</div>
+            <div class="col-md-6">{{form.student_tel|as_crispy_field}}</div>
+        </div>
+        <button class="btn btn-success" style="width: 100%;">SUBMIT APPLICATION</button>
+        <br>
+    </form>
+    <br>
+
+</div>
+
+
+<style>
+    .asteriskField {
+        content: '*';
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+</style>
+{% endblock%}

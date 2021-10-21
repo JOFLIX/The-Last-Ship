@@ -1,0 +1,1190 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title> C </title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/Datatables/datatables.min.css' %}" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="/static/img/Logo.pns">
+</head>
+
+<body onload="hack()" class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fa fa-home"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{% url 'viewprofile' %}" class="nav-link">Profile </a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    {% for x in settings%}
+                    <a href="{% url 'settings_view' %}" class="nav-link">{{x.term}}</a> {% endfor %}
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    {% for x in settings%}
+                    <a href="{% url 'settings_view' %}" class="nav-link">Session Year :{{x.session_year}}</a> {% endfor %}
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a style="color: green;" id="MyClockDisplay" href="" class="nav-link"></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a style="color: green;" id="dayName" href="" class="nav-link"></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a style="color: green;" id="dfordate" href="" class="nav-link"></a>
+                </li>
+
+
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a style="color: blue;" href="{% url 'member_staff' %}" class="nav-link">
+                        
+                        {% if request.user.is_superuser %}
+                        Superuser  : 
+                        {% endif %}
+                        {% if request.user.is_lecturer %}
+                        Lecturer  :
+                        {% endif %}
+                        {% if request.user.is_student %}
+                        Student :
+                        {% endif %}
+                        {% if request.user.is_parent  %}
+                        Parent :
+                        {% endif %}
+
+
+
+                         Welcome , {{request.user.get_full_name}}</a>
+                </li>
+            </ul>
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="{% url 'viewprofile' %}" class="dropdown-item">
+                            <i class="fas fa-user mr-2"></i> {{request.user.first_name|upper}} {{request.user.last_name|upper}}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'change_password' %}" class="dropdown-item">
+                            <i class="fas fa-sign-out"></i> Change Password
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        {% if request.user.is_superuser %}
+                        <a href="{% url 'settings_view' %}" class="dropdown-item">
+                            <i class="fas fa-sign-out">  </i>Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        {% endif %}
+                        <a style="color: red;" href="{% url 'logoutuser' %}" class="dropdown-item">
+                            <i class="fas fa-sign-out"></i> Sign out
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-th-large"></i></a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            {% if settings %} {% for x in settings%}
+            <a href="{% url 'dashboard' %}" class="brand-link"><img style="width: 60px;" src="/static/img/Logo.png" alt=""> {{x.School_name}}</a>
+            {% endfor %} {% else %}
+            <a href="{% url 'dashboard' %}" class="brand-link"><img style="width: 60px;" src="/static/img/Logo.png" alt=""> STUDENT MNGMT</a>
+            {% endif %}
+            <br>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                {% if request.user.is_superuser%}
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard' %}" class="nav-link">
+                                <i class="fas fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'viewprofile' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'admin:index' %}" class="nav-link">
+                                <i class="nav-icon fas fa-graduation-cap"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Students
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'register_students_view' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Register Student
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'View_all_students' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View Students
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Superusers
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'register_superuser' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Register Superuser
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'member_staff' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View Superusers
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Lecturers
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'register_lecturer' %}" class="nav-link">
+
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Register Lecturer
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{%  url 'view_all_lecturers' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View Lecturers
+                                        </p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Parents
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'register_parent' %}" class="nav-link">
+
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Register Parent
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{%  url 'view_parents' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View Parents
+                                        </p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Assignments
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'add_assignment' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Assignment
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'view_assignment_adm_lec' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            My Added Assignments
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'adm_lec_view_std_uploads' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Stdts Assignments Upload
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Timetables
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'add_timetable' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Timetable
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'view_timetable' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View Timetables
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Examination Results
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'add_exam_ressults' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Results
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'view_results_admin' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View Results
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'view_online_class_adm_lec' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    Schedule Online Class
+                                    <i class="right"></i>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'sms' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    Text Messages
+                                    <i class="right"></i>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Students Announcements
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'admin_view_all_student_announcement' %}" class="nav-link">
+
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            All Students
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'view_all_messages_adm' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    Messages
+                                    <i class="right"></i>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    E-Library
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'AddElearningLibraryResouurce' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Resource
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'ViewElearningLibraryResouurceLec' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View My Resources
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'ViewLibraryStudentLec' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View All Resources
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Send Mail
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'sendemailtostudents' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Email Students
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'sendemaillecturers' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Email Lecturers
+                                        </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'generate_a_printing_notice' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    Generate notice
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'admin_view_online_aplications' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    Online Applications
+                                </p>
+                            </a>
+                        </li>
+
+
+
+
+                        <li class="nav-header">Finance</li>
+                        <li class="nav-item">
+                            <a href="{% url 'add_fee' %}" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                <p>
+                                    Add Fee
+                                </p>
+                            </a>
+                            <a href="{% url 'view_fee' %}" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                <p>
+                                    View Fee
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header">FINANTIAL REPORTS </li>
+                        <li class="nav-item">
+
+                            <a href="{% url 'view_income_statement_report' %}" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                <p>
+                                    View Full Report
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header">Others</li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Management
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'view_session' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Sessions
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'view_term' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Terms
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'view_classes' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Classes
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'view_courses' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Courses
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'view_department' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Department
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'view_course_unit_admin' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Courses Units
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'change_password' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'settings_view' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Settings
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'logoutuser' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+
+                        <br>
+                        <br>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+
+                {% endif %} {% if request.user.is_student %}
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard' %}" class="nav-link">
+                                <i class="nav-icon fas fa-graduation-cap"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'viewprofile' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'view_exam_result_student' %}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Examination Results
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'view_announcements_students' %}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Announcements
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'add_message_lec_std' %}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Send Message
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'view_assignment_student' %}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Assignments
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'ViewLibraryStudentLec' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    E-Library
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'view_my_fee' %}" class="nav-link">
+                                <i class="nav-icon fas fa-bars"></i>
+                                <p>
+                                    Fees
+                                </p>
+                            </a>
+                        </li>
+
+
+                        <!--
+              
+              
+                        <li class="nav-header">Others</li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                                      
+                        -->
+                        <li class="nav-item">
+                            <a href="{% url 'change_password' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'logoutuser' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+
+                {% endif %} {% if request.user.is_lecturer %}
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard' %}" class="nav-link">
+                                <i class="nav-icon fas fa-graduation-cap"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'viewprofile' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'admin:index' %}" class="nav-link">
+                                <i class="nav-icon fas fa-graduation-cap"></i>
+                                <p>
+                                    Admin Dashboard
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Assignments
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'add_assignment' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Assignment
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'view_assignment_adm_lec' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View My Assignments
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'adm_lec_view_std_uploads' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Stdts Assignments Uploads
+                                        </p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Exam Results
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'add_exam_ressults' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Marks
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'view_results_admin' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Update Marks
+                                        </p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    E-Library
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'AddElearningLibraryResouurce' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            Add Resource
+                                            <i class="right"></i>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{% url 'ViewElearningLibraryResouurceLec' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View My Resources
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'ViewLibraryStudentLec' %}" class="nav-link">
+                                        <i class="nav-icon fas fa-bars"></i>
+                                        <p>
+                                            View All Resource
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'add_message_lec_std' %}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Send Message 
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'lec_announcement' %}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Announcements
+                                </p>
+                            </a>
+                        </li>
+
+
+
+
+
+                        <li class="nav-item">
+                            <a href="{% url 'change_password' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'logoutuser' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+
+                {% endif %} {% if request.user.is_parent %}
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard' %}" class="nav-link">
+                                <i class="nav-icon fas fa-graduation-cap"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'viewprofile' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'view_exam_result_student' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Examination Results
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'view_announcements_students' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Announcements
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'view_my_fee' %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p>
+                                    Student's Payment History
+                                </p>
+                            </a>
+                        </li>
+
+
+                    
+                        <li class="nav-item">
+                            <a href="{% url 'change_password' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'logoutuser' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+
+                {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+
+        <!-- Main content -->
+        {% block content %} {% endblock content %}
+
+        <!-- /.content -->
+
+        <!-- /.content-wrapper -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+
+
+    </div>
+    <!-- ./wrapper -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Developed by </b> <a href="https://web.facebook.com/profile.php?id=100007552518089">DeepNet</a> , <a href="https://web.facebook.com/360-Media-113891306962326">360 Media</a>
+        </div>
+        <strong>Copyright &copy; <script>var d=new Date(); var n =d.getFullYear(); document.write(n)</script> <a href="">NEP COLLEGE OF HEALTH SCIENCE</a>.</strong> All rights reserved.
+    </footer>
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/js/jquery.formset.js' %}">
+    </script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+
+    {% if messages %} {% for message in messages %}
+    <script type=text/javascript>
+        toastr.options.progressBar = true;
+        toastr. {
+            {
+                message.tags
+            }
+        }('{{ message }}')
+    </script>
+    {% endfor %} {% endif %}
+
+    <script src="{% static 'plugins/Datatables/datatables.min.js' %}"></script>
+
+    <script>
+        (function($) {
+            $('.clickable-row').css('cursor', 'pointer');
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+        })(jQuery)
+    </script>
+
+
+    <!--time  counter me custom -->
+    <script>
+        function showTime() {
+            var date = new Date();
+            var h = date.getHours(); // 0 - 23
+            var m = date.getMinutes(); // 0 - 59
+            var s = date.getSeconds(); // 0 - 59
+            var session = "AM";
+
+            if (h == 0) {
+                h = 12;
+            }
+
+            if (h > 12) {
+                h = h - 12;
+                session = "PM";
+            }
+
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+
+            var time = h + ":" + m + ":" + s + " " + session;
+            document.getElementById("MyClockDisplay").innerText = time;
+            document.getElementById("MyClockDisplay").textContent = time;
+
+            setTimeout(showTime, 1000);
+
+        }
+
+        showTime();
+    </script>
+
+
+    <script>
+        var d = new Date();
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        document.getElementById("dayofweek").innerHTML = months[d.getMonth()];
+    </script>
+    <script>
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = dd + '/' + mm + '/' + yyyy;
+        document.getElementById("dfordate").innerHTML = today;
+    </script>
+    <script>
+        var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        var dayName = days[new Date().getDay()];
+        document.getElementById("dayName").innerHTML = dayName;
+    </script>
+    <style>
+        .clock {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            color: red;
+            font-size: 12px;
+            font-family: Orbitron;
+            letter-spacing: 7px;
+            padding: 2px;
+        }
+    </style>
+    <!--End of counter clock-->
+
+
+    <script>
+        function hack() {
+            console.log('%c STOP NOW !!', 'font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)');
+            console.log("%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a System feature or 'hack' someone's account, it is a scam and will give them access to your  account", "color:blue")
+        }
+    </script>
+
+
+</body>
+
+</html>

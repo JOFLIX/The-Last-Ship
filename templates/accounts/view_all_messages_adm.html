@@ -1,0 +1,34 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-info">ALL MESSAGES <b class=" btn btn-warning float-right ">Total {{total}} , Not Replied {{not_replied}} , Replied : {{replied}}</b></button> {% for x in msg %} {% if x.reply %}
+                    </a> {% else %}
+                    <hr>
+                    <a style="width: 250px;" class="btn btn-warning" href="{% url 'update_admin_reply_message' x.id %}">Not Replied Click to reply</a> {% endif %}
+                    <div class="bg-light">
+                        <b><i style="color: green;">Sender : </i> {{x.user}}</b>
+                        <br>
+                        <b><i style="color: blue;">Message :</i>
+                <i >{{x.message}}</i></b>
+                    </div>{% if x.reply %}
+                    <b class="bg-light" style="color: green;padding:10px;"><b style="color: green;">Admin Reply</b> <br>{{x.reply}}</b> <br>
+                    <a style="width: 250px;" class="btn btn-info" href="{% url 'update_admin_reply_message' x.id %}">Edit</a>
+                    <a style="width: 250px;" class="btn btn-danger " href="{% url 'delete_message_adm' x.id %}">Delete</a> {% endif %}
+
+                    <hr> {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

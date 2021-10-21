@@ -1,0 +1,59 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'add_course_unit' %}">ADD</a> COURSE UNITS  <b class=" btn btn-warning float-right ">Total  {{count}}</b></button>
+                    <br><br>
+                    <form style="padding: 10px;" class="card" action="" method="GET">
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{form.form.unit_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.course|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.module|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                <br>
+
+                                <button style="width: 100%;" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <table class="table  table-bordered table-hover table-responsive-lg">
+                        <tr style="background-color: white;">
+                            <th>UNIT NAME</th>
+                            <th>COURSE</th>
+                            <th>MODULE</th>
+                            <th>DATE ADDED</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in units %}
+                        <tr>
+                            <td>{{x.unit_name}}</td>
+                            <td>{{x.course}}</td>
+                            <td>{{x.module}}</td>
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'update_course_unit' x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_course_unit' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

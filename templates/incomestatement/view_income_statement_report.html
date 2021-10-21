@@ -1,0 +1,67 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    <!--
+        <a target="_blank" class="btn btn-primary btn-info" href="{% url 'pdf_full__finantial_report' %}">Export To PDF </a>
+                    <br>
+-->
+                    <script>
+                        function click_button() {
+                            var button = document.getElementById('woo')[0].click()
+
+
+                        }
+                    </script>
+                    <center>
+                        <h6>SEARCH WITH YEAR</h6>
+                    </center>
+                    <form class="card" style="padding: 10px;" action="" method="post" class="form-group">
+                        {% csrf_token %}
+                        <input value="" class="form-control" name="year" type="number" required placeholder="Filter by Year ">
+                        <br> <button onload="click_button()" id="woo" class="btn btn-primary" style="width: 100%;">Search</button>
+                    </form>
+                    {% if year_searched %}
+                    <table class="table table-bordered ">
+                        <tr>
+                            <th>FEES REVENUE </th>
+                            <th>OTHER REVENUE</th>
+                            <th>NET REVENUE</th>
+                            <th>TAX = (total revenue x tax rate)</th>
+                            <th>EXPENSES</th>
+                            <th>NET PROFIT = (net revenue - (expenses + tax ))</th>
+                        </tr>
+                        <tr>
+                            <td>{{amount_paid}}</td>
+                            <td>{{revenue_amount}}</td>
+                            <td>{{net_revenue}}</td>
+                            <td> Tax : KES {{tax}} = KES {{tax_rate }} X KES {{net_revenue}} </td>
+                            <td> KES {{tota_expenses}}</td>
+                            <td>KES {{net_profit}}</td>
+                        </tr>
+                    </table>
+
+                    {% endif %} {% if year_searched %}
+                    <div class="jumbotron">
+                        <ul>
+                            <li>TOTAL ASSETS : KES {{asset_amount}}</li>
+                            <li>TOTAL LIABILITIES : KES {{Liabilities_amount}}</li>
+                        </ul>
+                        <center>
+
+                            <H3>Trading Balance</H3>
+
+
+                            <h4><b style="color: cornflowerblue;">Total Assets KES {{asset_amount}}</b> - <b style="color:green;">Total Liabilities KES {{Liabilities_amount}}</b> = <b style="color:dark;">Trading balance KES {{trading_balance}}</b></h4>
+                        </center>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

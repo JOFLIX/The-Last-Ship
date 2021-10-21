@@ -1,0 +1,34 @@
+{% extends 'accounts/base.html' %} {% block content %} {% load crispy_forms_tags %}
+<br><br>
+<br>
+<br>
+<br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <center>
+                <h1 style="color: blue;">NEWS AND EVENTS</h1>
+            </center>
+        </div>
+
+    </div>
+</div>
+
+{% for x in o %}
+
+<div class="row">
+    <div class="col-md-8" style="padding:50px;">
+        <center>
+            <h3 style="padding: 5px;"><b>{{x.title|upper}}</b></h3>
+        </center>
+        <div style="width: 100%; height:1px;background-color:blue;" class="line"></div>
+
+        <p style="padding: 10px;color:black;">{{x.description}}</p>
+
+    </div>
+    <div class="col-md-4">
+        <br><br><br><br><br>
+        <img style="width: 100%; height:270px;" class="" src="    {{x.image.url}}" alt="">
+    </div>
+</div>
+<hr> {% endfor %} {% endblock %}

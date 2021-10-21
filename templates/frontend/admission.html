@@ -1,0 +1,28 @@
+{% extends 'accounts/base.html' %} {% block content %} {% load crispy_forms_tags %}
+<br><br>
+<br>
+<br> <br><br>
+<br>
+<!-- Intro -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <center>
+                <h1>ADMISSION</h1>
+            </center>
+        </div>
+    </div>
+</div>
+{% for x in a %}
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p style="color: blue;">{{x.brief_introduction}}</p>
+            <h2>{{x.title|upper}}</h2><br>
+            <p style="color: black;">{{x.description}}</p>
+        </div>
+    </div>
+</div>
+<hr> {% endfor %}{% endblock %}

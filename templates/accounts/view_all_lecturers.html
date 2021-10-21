@@ -1,0 +1,149 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%;font-size:24px;" class="btn btn-info "><a class="float-left btn btn-warning" href="{% url 'register_lecturer' %}">ADD</a> <a class="float-left btn btn-primary" href="{% url 'pdf_all_lecturers_export' %}">PDF</a>  ALL REGISTERD LECTURERS <a  class="float-right btn btn-success" href="#">Total {{total_lec}}</a> </button>
+                    <br><br>
+                    <br>
+
+                    <form style="padding: 10px; " class="shadow card" action="" method="GET">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{form.form.registration_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.email|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.department|as_crispy_field}}
+
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.gender|as_crispy_field}}
+
+                            </div>
+                            <div class="col-md-2">
+
+                                {{form.form.national_ID|as_crispy_field}}
+
+                            </div>
+
+                            <div class="col-md-1">
+                                <br>
+                                <button class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <table class="table table-sm table-responsive table-bordered">
+                        <tr style="background-color:white">
+                            <th>Lecturer NO</th>
+                            <th>Email</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Is Active</th>
+                            <th>National ID</th>
+                            <th>D.O.B</th>
+                            <th>Picture</th>
+                            <th>Phone</th>
+
+                            <th>Department</th>
+
+                            <th>Gender</th>
+
+                            <th>next_of_kin_firstname</th>
+                            <th>next_of_kin_middlename</th>
+                            <th>next_of_kin_lastname</th>
+                            <th>next_of_kin_relationship</th>
+                            <th>next_of_kin_phone</th>
+                            <th>Action</th>
+                            <td>Action</td>
+
+
+                        </tr>
+                        {% for x in obj %}
+                        <tr>
+                            <td>{{x.registration_number}}</td>
+                            <td>{{x.email}}</td>
+                            <td>{{x.first_name}}</td>
+                            <td>{{x.last_name}}</td>
+                            <td>{{x.is_active}}</td>
+                            <td>{{x.national_ID}}</td>
+                            <td>{{x.dob}}</td>
+                            <td>{{x.official_picture.img.url}}</td>
+                            <td>{{x.phone}}</td>
+                            <td>{{x.department}}</td>
+                            <td>{{x.gender}}</td>
+                            <td>{{x.next_of_kin_firstname}}</td>
+                            <td>{{x.next_of_kin_middlename}}</td>
+                            <td>{{x.next_of_kin_lastname}}</td>
+                            <td>{{x.next_of_kin_relationship}}</td>
+                            <td>{{x.next_of_kin_phone}}</td>
+                            <td><a href="{% url 'edit_lec' x.id %}"><i class="fas fa-edit"></i> Edit</a></td>
+                            <td><a href="{% url 'delete_lec' x.id %}"><i class="fas fa-trash-alt"></i>Delete</a></td>
+
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <hr>
+                    <center>
+                        Showing page {{obj.number}} of {{ obj.paginator.num_pages }}
+                        <div class="paginator">
+                            {% if obj.has_other_pages %}
+                            <ul class="pagination">
+                                {% if obj.has_previous %}
+                                <li><a href="?page={{ obj.previous_page_number }}">Previous</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %} {% for i in obj.paginator.page_range %} {% if obj.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                                {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %} {% endfor %} {% if obj.has_next %}
+                                <li><a href="?page={{ obj.next_page_number }}">Next</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <style>
+                            .paginator ul li {
+                                padding: 20px;
+                                border: 1px solid lightblue;
+                                height: 10px;
+                            }
+                        </style>
+
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+    
+    .table tr {
+        font-size: 12px;
+    }
+</style>
+
+{% endblock %}

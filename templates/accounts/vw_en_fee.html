@@ -1,0 +1,80 @@
+{% extends 'accounts/basedashboard.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div style="padding: 10px;" class="col-md-12 shadow">
+                            <center>
+                                <h1 style="width: 100%;" class="btn btn-info disabled"><a class="btn btn-success float-left" href="{% url 'adm_fee' %}">ADD </a> STUDENTS ADM FEES  <b class="float-right btn btn-warning"> </b></h1>
+                            </center>
+              <table class="table table-sm table-bordered table-responsive">
+                  {% for x in d %}
+                  <tr>
+                      <td>#</td>
+                      <td>#</td>
+                      <td>received from</td>
+                      <td>Reg no</td>
+                      <td>Registration/admission fee</td>
+                      <td>Tution_fee</td>
+                      <td>boarding_hostel_fees</td>
+                      <td>repair_and_maintanance</td>
+                      <td>electricity water and conservancy</td>
+                      <td>medical_fud_insurance</td>
+                      <td>rent_hire</td>
+                      <td>examination</td>
+                      <td>computer_studies</td>
+                      <td>production_contracts</td>
+                      <td>evening_classes</td>
+                      <td>citc_uniform/badge/id_card/t_shirt</td>
+                      <td>sundry_debtors_fees_arrears</td>
+                      <td>income_genarating_act</td>
+                      <td>miscellaneous</td>
+                      <td>total</td>
+                  </tr>
+                  <tr>
+<td><a href="{% url 'pdf_adm_fee' x.id %}">Print</a></td>
+<td><a href="{% url 'edt_adm_fee'  x.id  %}"> Update</a></td>
+                      <td>{{x.received_from}}</td>
+                      <td>{{x.reg_no}}</td>
+                      <td>{{x.Registration_admission_fee}}</td>
+                      <td>{{x.Tution_fee}}</td>
+                      <td>{{x.boarding_hostel_fees}}</td>
+                      <td>{{x.repair_and_maintanance}}</td>
+                      <td>{{x.electricity_water_and_conservancy}}</td>
+                      <td>{{x.medical_fud_insurance}}</td>
+                      <td>{{x.rent_hire}}</td>
+                      <td>{{x.examination}}</td>
+                      <td>{{x.computer_studies}}</td>
+                      <td>{{x.production_contracts}}</td>
+                      <td>{{x.evening_classes}}</td>
+                      <td>{{x.citc_uniform_badge_id_card_t_shirt}}</td>
+                      <td>{{x.sundry_debtors_fees_arrears}}</td>
+                      <td>{{x.income_genarating_act}}</td>
+                      <td>{{x.miscellaneous}}</td>
+                      <td>{{x.total}}</td>
+                  </tr>
+                  {% endfor %}
+                  
+              </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <style>
+                .asteriskField {
+                    content: "*";
+                    color: red;
+                    font-size: 20px;
+                    padding: 5px;
+                }
+                
+                label {
+                    color: black;
+                }
+            </style>
+            
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my exam</title>
+    <style>
+        @page {
+            size: A4 LANDSCAPE;
+            margin: 0in 0in 0in 0in;
+            @top-center {
+                content: "";
+                font-size: large;
+                font-weight: 100;
+            }
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <sub> {{get_date}}</sub>
+    <center>
+        <img style="width: 100px;" src="/static/img/Logo.png" alt="">
+        <h3> {{school_name}}</h3>
+        <sup><i>Student Examination Results</i></sup>
+        <hr>
+
+    </center>
+    <style>
+        table,
+        th,
+        td {
+            border: 0.1px solid black;
+            padding: 10px;
+            font-size: small;
+        }
+    </style>
+    <sup><b>ADDMISION NO</b> : {{u}} </sup><br>
+    <sup><b>CLASS</b> : {{class_a}}</sup><br>
+    <sup> <b>FIRST NAME</b> : {{first_name}} </sup><br>
+    <sup><b>LAST NAME</b>  :{{last_name}} </sup><br>
+    <sup><b>PROGRAMME</b>   :{{get_programme}} </sup><br>
+    <sup><b>DEPARTMENT</b>   : {{get_department}}</sup><br>
+    <div style="width: 100%;height:5px;background-color: black;" class="line"></div><br>
+
+
+    </ul>
+    <table height=300 style="font-size: 10px;width: 100%;border-collapse: collapse;">
+        <thead style="color:black; font-size: bold;background-color:lightgreen">
+            <th>YEAR</th>
+            <th>TERM</th>
+            <th>UNIT NAME</th>
+            <th>CAT</th>
+            <th>END TERM</th>
+            <th>TOTAL</th>
+            <th>GRADE</th>
+            <th>DATE ADDED</th>
+        </thead>
+
+        <tbody>
+            {% for x in result %}
+            <tr>
+                <td>{{x.year}}</td>
+                <td>{{x.term}}</td>
+                <td>{{x.unit_name}}</td>
+                <td>{{x.cat_marks}}</td>
+                <td>{{x.end_term_marks}}</td>
+                <td>{{x.get_total}}</td>
+                <td>{{x.get_grade}}</td>
+                <td>{{x.date_added}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+
+
+    </table>
+    <br>
+
+
+</body>
+
+</html>

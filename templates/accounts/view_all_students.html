@@ -1,0 +1,190 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <h1 style="width: 100%;" class="btn btn-info "><a class="float-left btn btn-primary" href="{% url 'register_students_view' %}">ADD</a> <a class="float-left btn btn-warning" href="{% url 'pdf_all_students_export' %}">PDF</a> ALL REGISTERD STUDENTS <a class="float-right btn btn-success"
+                            href="#">Total {{search_count}}</a> </h1>
+                    <br><br>
+
+                    <form style="padding: 10px; " class="shadow card" action="" method="GET">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                {{form.form.registration_number|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.class_assigned|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.email|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.department|as_crispy_field}}
+
+                            </div>
+                            <div class="col-md-3">
+                                {{form.form.gender|as_crispy_field}}
+
+                            </div>
+                            <div class="col-md-3">
+
+                                {{form.form.national_ID|as_crispy_field}}
+
+                            </div>
+                            <div class="col-md-3">
+
+                                {{form.form.module|as_crispy_field}}
+
+                            </div>
+
+                            <div class="col-md-2">
+                                {{form.form.course_assigned|as_crispy_field}}
+
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.intake|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                <br>
+                                <button style="width: 100%;" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card">
+                        <marquee class="woo" behavior="scroll" direction="left">Our Registered Students : {{search_count}}</marquee>
+                    </div>
+                    <table class="table table-sm table-responsive table-bordered">
+                        <tr style="background-color: white;color:black;" class="shadow">
+                            <th>Export</th>
+                            <th>Update</th>
+                            <th>Registration NO</th>
+                            <th>Email</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Is Active</th>
+                            <th>National ID</th>
+                            <th>D.O.B</th>
+                            <th>Picture</th>
+                            <th>Phone</th>
+                            <th>Course</th>
+                            <th>Department</th>
+                            <th>Class Name</th>
+                            <th>Gender</th>
+                            <th>Intake</th>
+                     
+                            <th>next_of_kin</th>
+                            <th>next_of_kin_phone</th>
+                            <td>Action</td>
+
+
+                        </tr>
+                        {% for x in students %}
+                        <tr>
+                            <td><a class="btn btn-primary badge badge-pill" href="{% url 'pdf_export_single_student' x.id  %}">Print</a></td>
+                            <td><a href="{% url 'update_students' x.id %}">Update</a></td>
+                            <td style="background-color: wheat;">{{x.registration_number}}</td>
+                            <td>{{x.email}}</td>
+                            <td>{{x.first_name}}</td>
+                            <td>{{x.last_name}}</td>
+                            <td>{{x.is_active}}</td>
+                            <td>{{x.national_ID}}</td>
+                            <td>{{x.dob}}</td>
+                            <td>{{x.official_picture.img.url}}</td>
+                            <td>{{x.phone}}</td>
+                            <td>{{x.course_assigned}}</td>
+                            <td>{{x.department}}</td>
+                            <td>{{x.class_assigned}}</td>
+                            <td>{{x.gender}}</td>
+                            <td>{{x.intake}}</td>
+                      
+                            <td>{{x.next_of_kin}}</td>
+                            <td>{{x.next_of_kin_phone}}</td>
+                            <td><a href="{% url 'delete_student' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <hr>
+                    <center>
+                        Showing page {{students.number}} of {{ students.paginator.num_pages }}
+                        <div class="paginator">
+                            {% if students.has_other_pages %}
+                            <ul class="pagination">
+                                {% if students.has_previous %}
+                                <li><a href="?page={{ students.previous_page_number }}">Previous</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %} {% for i in students.paginator.page_range %} {% if students.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
+                                {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %} {% endfor %} {% if students.has_next %}
+                                <li><a href="?page={{ students.next_page_number }}">Next</a></li>
+                                {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <style>
+                            .paginator ul li {
+                                padding: 20px;
+                                border: 1px solid lightblue;
+                                height: 10px;
+                            }
+                        </style>
+
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+    
+    .table tr {
+        font-size: 12px;
+    }
+    
+    .woo {
+        animation-name: s;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    
+    @keyframes s {
+        10% {
+            color: yellow;
+        }
+        25% {
+            color: red;
+        }
+        50% {
+            color: blue;
+        }
+        75% {
+            color: green;
+        }
+        100% {
+            color: purple;
+        }
+    }
+</style>
+
+{% endblock %}

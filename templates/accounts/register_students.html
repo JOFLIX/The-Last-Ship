@@ -1,0 +1,100 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load static %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-12 shadow">
+                    {% if form.errors %}
+
+                    <div class="jumbotron">
+                        <h3 style="color: blue;">Correct The Following Errors </h3>
+                        <b style="color:red;"> {{form.errors}}</b>
+                    </div>
+
+                    {% endif %} {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <br>
+                    <button style="width: 100%; font-size:23px;" class="btn btn-secondary disabled"> <a class="btn btn-warning float-left"href="{% url 'View_all_students' %}">VIEW</a> NEW STUDENTS REEGISTRATION  <a href="{% url 'View_all_students' %}"><b class="btn btn-success float-right">Current : {{student_count}}</b></a></button>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-3">{{form.registration_number|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.email|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.first_name|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.last_name|as_crispy_field}}</div>
+
+                            <div class="col-md-2">{{form.gender|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.class_assigned|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.student_term|as_crispy_field}}</div>
+
+                            <div class="col-md-2">{{form.national_ID|as_crispy_field}}</div>
+
+
+
+                            <div class="col-md-2">{{form.intake|as_crispy_field}}</div>
+                            <div class="col-md-2">{{form.official_picture|as_crispy_field}}</div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-3">{{form.dob|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.phone|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.course_assigned|as_crispy_field}}</div>
+                            <div class="col-md-3">{{form.department|as_crispy_field}}</div>
+
+
+
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-6">{{form.next_of_kin|as_crispy_field}}</div>
+
+                            <div class="col-md-6">{{form.next_of_kin_phone|as_crispy_field}}</div>
+                            <div class="col-md-2" id="hidethis">{{form.is_student|as_crispy_field}}</div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">{{form.password1|as_crispy_field}}</div>
+                            <div class="col-md-6">{{form.password2|as_crispy_field}}</div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button style="width: 100%;" class="btn btn-primary">Register</button> <br><br>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .checkboxinput {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .form-control {}
+    
+    .asteriskField {
+        content: '*';
+        color: red;
+        padding: 5px;
+        font-size: 17px;
+    }
+    
+    .form-check-label {
+        padding: 12px;
+    }
+</style>
+
+<script>
+    document.getElementById("hidethis").style.display = "none";
+</script>
+
+<script>
+    password1 = document.getElementsByName('password1').value = 6
+</script>
+{% endblock content %}

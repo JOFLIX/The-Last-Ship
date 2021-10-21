@@ -1,0 +1,36 @@
+{% extends 'accounts/basedashboard.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div style="padding: 10px;" class="col-md-12 shadow">
+                            <center>
+                                <h1 style="width: 100%;" class="btn btn-info disabled"><a class="btn btn-success float-left" href="{% url 'view_term' %}">View</a> ADD TERM  <b class="float-right btn btn-warning"> Total Classes {{term_count}}</b></h1>
+                            </center>
+                            <form method="POST">
+                             {% csrf_token %} {{ form|crispy }}
+                                <button style="width: 60%;" class=" btn btn-success " type="submit"> ADD</button>
+                        <a style="width: 30%;" class="btn btn-info" href="{% url 'dashboard' %}">Dashboard</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <style>
+                .asteriskField {
+                    content: "*";
+                    color: red;
+                    font-size: 20px;
+                    padding: 5px;
+                }
+                
+                label {
+                    color: black;
+                }
+            </style>
+            
+{% endblock %}

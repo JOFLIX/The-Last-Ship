@@ -1,0 +1,61 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 card">
+                    <center>
+                        <h4 class="btn btn-info " style="width: 100%;">TYPE CONTENT OF THE NOTICE THEN GENERATE<b class="float-right btn btn-warning"> Total  {{count}}</b></h4>
+                    </center>
+
+                    <form style="padding: 10px;" class="bg-light" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %} {{ form|crispy }}
+                        <button style="width: 60%;" class=" btn btn-success " type="submit">Generate</button>
+                        <a style="width: 30%;" class="btn btn-info" href="{% url 'dashboard' %}">Dashboard</a>
+                    </form>
+                    <hr> {% if notice %}
+                    <center>
+                        <h5>NOTICES ADDED</h5>
+                    </center>
+                    <table class="table table-bordered table-responsive-lg table-hover table-sm">
+                        <tr style="background-color: lightblue;">
+                            <th>Notice Title</th>
+                            <th>Notice Descriptions</th>
+                            <th>Date Added</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in notice %}
+                        <tr>
+                            <td>{{x.title}}</td>
+                            <td style="word-break: break-all;">{{x.description}}</td>
+                            <td>{{x.date_added}}</td>
+                            <td><a href="{% url 'update_generate_a_printing_notice' x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_notice_adm' x.id %}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <center>
+                        <a target="_blank" class="btn btn-success" href="{% url 'pdf_notice_admin' %}">Export Notice to PDF</a>
+                    </center>
+                    <br> {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .asteriskField {
+        content: "*";
+        color: red;
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    label {
+        color: black;
+    }
+</style>
+
+{% endblock %}

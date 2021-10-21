@@ -1,0 +1,48 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <button style="width: 100%; " class="btn btn-info"><a class="btn btn-success float-left" href="{% url 'register_superuser' %}">ADD</a><a class="btn btn-warning float-left" href="{% url 'pdf_all_superusers_export' %}">PDF</a>  ALL SUPERUSERS <b class=" btn btn-warning float-right ">Total  {{superuser_count}}  </b></button>
+                    <table class="table table-bordered  table-responsive-lg table-striped">
+                        <tr style="background-color: white;">
+                            <th>UserName</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date Joined</th>
+                            <th>Email</th>
+                            <th>Is Superuser</th>
+                            <th>Active</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x in staff %}
+                        <tr>
+                            <td>{{x.registration_number}}</td>
+                            <td>{{x.first_name}}</td>
+                            <td>{{x.last_name}}</td>
+                            <td>{{x.date_joined}}</td>
+                            <td>{{x.email}}</td>
+                            <td>{{x.is_superuser}}</td>
+                            <td>{{x.is_active}}</td>
+                            <td><a href="{% url 'update_superuser' x.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete_superuser' x.id %}">DELETE</a></td>
+
+
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <center style="color: red;">NB : ALL SUPERUSERS HAVE ALL PERMISSIONS AND AUTHORIZATION </center>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

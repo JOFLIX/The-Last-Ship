@@ -1,0 +1,72 @@
+{% extends 'accounts/basedashboard.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div style="padding: 10px;" class="col-md-12 shadow">
+                    {% if messages %}
+                    <i class="btn btn-success disabled" style="width: 100%;"> {% for me in messages %}{{me}}{% endfor %}</i> {% endif %}
+                    <form class="card" style="padding: 10px;" action="" method="GET">
+                        <div class="row">
+                            <div class="col-md-2">
+                                {{form.form.module|as_crispy_field}}
+                            </div>
+                            <div class="col-md-2">
+                                {{form.form.year|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{form.form.term|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                <br>
+                                <button style="width: 100%;" class="btn btn-info">Search</button>
+                                <br>
+                            </div>
+                        </div>
+                    </form>
+                    <button style="width: 100%; " class="btn btn-primary"><a class="btn btn-success float-left" href="{% url 'pdf_student_exam_export' %}">Export PDF</a> Hi , {{request.user.get_full_name}} Here is your Examination Results  <b class=" btn btn-warning float-right ">Total  {{result_count}}  </b></button>
+                    <table class="table table-bordered  table-responsive-lg table-striped">
+                        <tbody>
+                            <tr style="background-color: white;">
+                                <th>Year</th>
+                                <th>Term</th>
+                                <th>Unit</th>
+                                <th>CAT Marks</th>
+                                <th>End Term Marks</th>
+                                <th>Total</th>
+                                <th>Grade</th>
+                                <th>Added On</th>
+                            </tr>
+                            {% for x in result %}
+                            <tr>
+                                <td>{{x.year}}</td>
+                                <td>{{x.term}}</td>
+                                <td>{{x.unit_name}}</td>
+                                <td>{{x.cat_marks}}</td>
+                                <td>{{x.end_term_marks}}</td>
+                                <td>{{x.get_total}}</td>
+                                <td>{{x.get_grade}}</td>
+                                <td>{{x.date_added}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    <div class="jumbotron">
+                        <center>
+                            <h6 style="width: 50%;" class="btn btn-primary"> TOTAL : {{total}}</h6>
+                            <h6 style="width: 30%;" class="btn btn-secondary">OVERALL GRADE <b style="color:yellow;">{{average_grade_for_all_units}}</b></h6>
+                        </center>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
